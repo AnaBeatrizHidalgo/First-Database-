@@ -16,10 +16,11 @@ cursor = conn.cursor()
 firstQuery = cursor.execute("SELECT " \
 "   C.Name AS Country," \
 "   Y.year," \
-"   CY.Population" \
 "   G.GDP," \
 "   I.IDH," \
 "   E.CO2_Emission," \
+"   P.GWH," \
+"   CY.Population" \
 "FROM Country_Year CY" \
 "INNER JOIN Country C " \
 "   ON CY.Country_ID_Country = C.ID_Country" \
@@ -31,12 +32,14 @@ firstQuery = cursor.execute("SELECT " \
 "   ON CY.IDH_ID_IDH = I.ID_IDH" \
 "INNER JOIN [Environmental Indicator] E" \
 "   ON CY.Enviromental_ID = E.ID_Environmental_Indicator" \
+"INNER JOIN [Power Consumed] P" \
+"   ON CY.ConsumePower_ID = P.ID_Consumed" \
 "ORDER BY C.Name, Y.year AND CY.Pouplation")
 
 secondQuery = cursor.execute("SELECT " \
     "C.Name AS Country,"\
     "Y.year," \
-    "S.Name AS Sector" \
+    "S.Name AS Sector," \
     "SY.CO2_Emission" \
 "From Sector_Year SY" \
 "INNER JOIN Country C" \
