@@ -1,0 +1,9 @@
+Links Datasets Inspiradores:
+- https://ourworldindata.org/grapher/share-of-low-carbon-energy-vs-gdp	
+- https://ourworldindata.org/grapher/human-development-index-vs-gdp-per-capita	
+
+Link Datasets Puros:
+- https://www.gapminder.org/data/documentation/gd003/	
+- https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators	
+- https://hdr.undp.org/content/2024-global-multidimensional-poverty-index-mpi#/indicies/MPI	
+- https://www.energyinst.org/statistical-review	

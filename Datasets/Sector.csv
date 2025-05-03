@@ -1,0 +1,9 @@
+ID_Sector,Name,Descrition
+2,Agriculture ,"crop residues burning, enteric fermentation, manure management, indirect N2O emissions from agriculture"
+3,Buildings,Small scale non-industrial stationary combustion
+4,Fuel exploitation,Production transformation and refining of fuels
+5,Industrial combustion,Combustion for industrial manufacturing
+6,Power Industry,Power and heat generation plants (public & autoproducers)
+7,Processes,"Industrial processes (e.g. emissions from the production of cement, iron and steel, aluminum, chemicals, solvents, etc.)"
+8,Transport,Mobile combustion (road & rail & ship & aviation)
+9,Waste,Solid waste disposal and waste water treatment
