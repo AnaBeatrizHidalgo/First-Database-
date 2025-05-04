@@ -52,7 +52,6 @@ CREATE TABLE IF NOT EXISTS public."Sector" (
     "Name"      VARCHAR(100)
 );
 
--- (global ou por país; mantendo Country_ID caso precise)
 CREATE TABLE IF NOT EXISTS public."Sector_Year" (
     "Sector_ID_Sector"   INT REFERENCES public."Sector",
     "Year_ID_year"       INT REFERENCES public."Year",
@@ -79,31 +78,5 @@ CREATE TABLE IF NOT EXISTS public."Country_Year" (
     PRIMARY KEY ("Country_ID_Country","Year_ID_year")
 );
 
--- ──────────────── SEEDS & UTILITIES ────────────────
-
--- Popular anos (2000..ano atual)
-INSERT INTO public."Year"(year)
-SELECT y
-FROM generate_series(2000, EXTRACT(YEAR FROM CURRENT_DATE)::INT) y
-ON CONFLICT DO NOTHING;
-
--- Gerar linhas vazias em Country_Year (facilita FK posteriores)
-INSERT INTO public."Country_Year" ("Country_ID_Country","Year_ID_year")
-SELECT c."ID_Country", y."ID_year"
-FROM   public."Country" c
-CROSS  JOIN public."Year" y
-WHERE  y.year BETWEEN 2000 AND 2023
-ON CONFLICT DO NOTHING;
-
-INSERT INTO public."Power Source" ("Name", "Renewable") VALUES
-('Other renewables excluding bioenergy', true),
-('Bioenergy', true),
-('Solar', true),
-('Wind', true),
-('Hydro', true),
-('Nuclear', false),
-('Oil', false),
-('Gas', false),
-('Coal', false);
 
 COMMIT;

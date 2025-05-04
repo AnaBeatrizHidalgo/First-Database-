@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 engine = create_engine(os.getenv("DB_URL"))
 
-PATH_PWR = Path("../Datasets/PowerConsumid.csv")
+PATH_PWR = Path("Datasets/PowerConsumid.csv")
 YEAR_MIN, YEAR_MAX = 2000, 2025
 
 def clean_country(val) -> str:

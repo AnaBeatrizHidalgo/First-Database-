@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 engine = create_engine(os.getenv("DB_URL"))
 
-PATH_GDP = Path("../Datasets/country_year_gdp_energy_health.csv")  
+PATH_GDP = Path("Datasets/country_year_gdp_energy_health.csv")  
 YEAR_MIN, YEAR_MAX = 1960, 2025
 
 def clean_country(val) -> str:

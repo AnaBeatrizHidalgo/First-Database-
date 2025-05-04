@@ -8,7 +8,7 @@ load_dotenv()
 DB_URL = os.getenv("DB_URL")
 engine = create_engine(DB_URL)
 
-edgar = pd.read_excel("./Datasets/Dados CO2/EDGAR_2024_GHG_booklet_2024_fossilCO2only.xlsx", sheet_name="fossil_CO2_by_sector_country_su")
+edgar = pd.read_excel("Datasets/Dados CO2/EDGAR_2024_GHG_booklet_2024_fossilCO2only.xlsx", sheet_name="fossil_CO2_by_sector_country_su")
 
 df_setor = edgar[['Sector']].dropna().drop_duplicates()
 df_setor = df_setor.rename(columns={'Sector': 'Name'})
