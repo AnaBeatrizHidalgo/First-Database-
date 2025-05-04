@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 load_dotenv()
 engine = create_engine(os.getenv("DB_URL"))
 
-PATH_IDH      = Path("./human-development-index-vs-gdp-per-capita.csv")
-PATH_GMPI_T1  = Path("./2024_gMPI_Table1and2 - gMPI_Table1.csv")
-PATH_GMPI_T2  = Path("./2024_gMPI_Table1and2 - Table2.csv")
+PATH_IDH      = Path("../Datasets/human-development-index-vs-gdp-per-capita.csv")
+PATH_GMPI_T1  = Path("../Datasets/2024_gMPI_Table1and2 - gMPI_Table1.csv")
+PATH_GMPI_T2  = Path("../Datasets/2024_gMPI_Table1and2 - Table2.csv")
 YEAR_MIN, YEAR_MAX = 2000, 2025
 
 def clean_country(val) -> str:

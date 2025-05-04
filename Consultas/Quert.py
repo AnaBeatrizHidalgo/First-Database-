@@ -1,4 +1,4 @@
-import ConectionBD
+import populate_scripts.ConectionBD as ConectionBD
 from sqlalchemy import create_engime, Column, Integer, String, ForeignKey, text
 from sqlalchemy.orm import relationship, sessionmaker, declarative_base
 

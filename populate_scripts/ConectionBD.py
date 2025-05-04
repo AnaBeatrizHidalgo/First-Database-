@@ -3,10 +3,10 @@ import psycopg2
 # Conexão ao banco de dados
 def get_db_connection():
     return psycopg2.connect(
-        dbname="DB_NAME",
-        user="DB_USER",
-        password="DB_PASSWORD",
-        host="DB_HOST",
+        dbname="Projeto1",
+        user="postgres",
+        password="123",
+        host="localhost",
         port="5432"
     )
 

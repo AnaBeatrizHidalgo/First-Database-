@@ -12,7 +12,7 @@ load_dotenv()
 DB_URL = os.getenv("DB_URL")
 engine = create_engine(DB_URL)
 
-CSV_PATH = "Datasets/electricity-prod-source-stacked.csv"
+CSV_PATH = "../Datasets/electricity-prod-source-stacked.csv"
 
 with engine.begin() as conn:
     country_map = pd.read_sql(
