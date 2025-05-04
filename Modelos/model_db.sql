@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS public."Country_Year" (
     "IDH_ID"             INT REFERENCES public."IDH",
     "Environmental_ID"   INT REFERENCES public."Environmental Indicator",
     "ConsumePower_ID"    INT REFERENCES public."Power Consumed",
-    "Population"         INT,
+    "Population"         BIGINT,
     PRIMARY KEY ("Country_ID_Country","Year_ID_year")
 );
 
@@ -94,5 +94,16 @@ FROM   public."Country" c
 CROSS  JOIN public."Year" y
 WHERE  y.year BETWEEN 2000 AND 2023
 ON CONFLICT DO NOTHING;
+
+INSERT INTO public."Power Source" ("Name", "Renewable") VALUES
+('Other renewables excluding bioenergy', true),
+('Bioenergy', true),
+('Solar', true),
+('Wind', true),
+('Hydro', true),
+('Nuclear', false),
+('Oil', false),
+('Gas', false),
+('Coal', false);
 
 COMMIT;
