@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS public."Country_Year" (
     "IDH_ID"             INT REFERENCES public."IDH",
     "Environmental_ID"   INT REFERENCES public."Environmental Indicator",
     "ConsumePower_ID"    INT REFERENCES public."Power Consumed",
-    "Population"         INT,
+    "Population"         BIGINT,
     PRIMARY KEY ("Country_ID_Country","Year_ID_year")
 );
 
