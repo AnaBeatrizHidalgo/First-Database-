@@ -95,4 +95,15 @@ CROSS  JOIN public."Year" y
 WHERE  y.year BETWEEN 2000 AND 2023
 ON CONFLICT DO NOTHING;
 
+INSERT INTO public."Power Source" ("Name", "Renewable") VALUES
+('Other renewables excluding bioenergy', true),
+('Bioenergy', true),
+('Solar', true),
+('Wind', true),
+('Hydro', true),
+('Nuclear', false),
+('Oil', false),
+('Gas', false),
+('Coal', false);
+
 COMMIT;
