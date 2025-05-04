@@ -8,7 +8,7 @@ load_dotenv()
 DB_URL = os.getenv("DB_URL")
 engine = create_engine(DB_URL)
 
-file_path = '../Datasets/Dados CO2/EDGAR_2024_GHG_booklet_2024_fossilCO2only.xlsx'
+file_path = './Datasets/Dados CO2/EDGAR_2024_GHG_booklet_2024_fossilCO2only.xlsx'
 
 sheet_name = 'fossil_CO2_by_sector_country_su'
 df = pd.read_excel(file_path, sheet_name=sheet_name)

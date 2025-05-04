@@ -36,7 +36,7 @@ df_filtrado3 = df_filtrado2[df_filtrado2["Unit"].isin(indicadores_desejados3)]
 
 # Criar a lista de colunas desejadas
 colunas_desejadas = [
-    "Area","Year","Category","Variable","Value"]
+    "Country","Year","Category","Variable","Value"]
 
 # Selecionar apenas as colunas desejadas (se existirem no DataFrame)
 colunas_existentes = [col for col in colunas_desejadas if col in df_filtrado3.columns]
@@ -44,7 +44,7 @@ df_resultado = df_filtrado3[colunas_existentes]
 
 # Pivotear a tabela para transformar a coluna Category em colunas separadas
 pivoted_df = df_resultado.pivot_table(
-    index=['Area', 'Year', 'Variable'],
+    index=['Country', 'Year', 'Variable'],
     columns='Category',
     values='Value',
     aggfunc='first'  # assumindo que não há duplicatas

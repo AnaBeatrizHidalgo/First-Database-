@@ -3,49 +3,63 @@
 BEGIN;
 
 
+CREATE TABLE IF NOT EXISTS public."Sector"
+(
+    "ID_Sector" serial NOT NULL,
+    "Name" character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT "Sector_pkey" PRIMARY KEY ("ID_Sector")
+);
+
+CREATE TABLE IF NOT EXISTS public."Sector_Year"
+(
+    "Sector_ID_Sector" integer NOT NULL,
+    "Year_ID_year" integer NOT NULL,
+    "CO2_Emission" numeric(12, 2),
+    CONSTRAINT "Sector_Year_pkey" PRIMARY KEY ("Sector_ID_Sector", "Year_ID_year")
+);
+
+CREATE TABLE IF NOT EXISTS public."Year"
+(
+    "ID_year" serial NOT NULL,
+    year integer,
+    CONSTRAINT "Year_pkey" PRIMARY KEY ("ID_year"),
+    CONSTRAINT "Year_year_key" UNIQUE (year)
+);
+
 CREATE TABLE IF NOT EXISTS public."Country_Power Source"
 (
-    "Country_ID_Country" serial NOT NULL,
-    "Power Source_ID_Power" serial NOT NULL,
-    "Year_ID_year" serial NOT NULL,
-    "Power_Generation" numeric(6, 2),
-    "CO2_Emission" numeric(6, 2)
+    "Country_ID_Country" integer NOT NULL,
+    "Power Source_ID_Power" integer NOT NULL,
+    "Year_ID_year" integer NOT NULL,
+    "Power_Generation" numeric(12, 2),
+    "CO2_Emission" numeric(12, 2),
+    CONSTRAINT "Country_Power Source_pkey" PRIMARY KEY ("Country_ID_Country", "Power Source_ID_Power", "Year_ID_year")
 );
 
 CREATE TABLE IF NOT EXISTS public."Country"
 (
     "ID_Country" serial NOT NULL,
     "Name" character varying(100) COLLATE pg_catalog."default",
-    "Region_ID_Region" serial NOT NULL,
     CONSTRAINT "Country_pkey" PRIMARY KEY ("ID_Country")
-);
-
-CREATE TABLE IF NOT EXISTS public."Region"
-(
-    "ID_Region" serial NOT NULL,
-    "Name" character varying(100) COLLATE pg_catalog."default",
-    CONSTRAINT "Region_pkey" PRIMARY KEY ("ID_Region")
 );
 
 CREATE TABLE IF NOT EXISTS public."Country_Year"
 (
-    "Country_ID_Country" serial NOT NULL,
-    "Year_ID_year" serial NOT NULL,
-    "GDP_ID" serial NOT NULL,
-    "IDH_ID" serial NOT NULL,
-    "Enviromental_ID" serial NOT NULL,
-    "ConsumePower_ID" serial NOT NULL,
-    "Population" integer,
-    CONSTRAINT "Country_Year_Enviromental_ID_key" UNIQUE ("Enviromental_ID"),
-    CONSTRAINT "Country_Year_GDP_ID_key" UNIQUE ("GDP_ID"),
-    CONSTRAINT "Country_Year_IDH_ID_key" UNIQUE ("IDH_ID")
+    "Country_ID_Country" integer NOT NULL,
+    "Year_ID_year" integer NOT NULL,
+    "GDP_ID" integer,
+    "IDH_ID" integer,
+    "Environmental_ID" integer,
+    "ConsumePower_ID" integer,
+    "Population" bigint,
+    CONSTRAINT "Country_Year_pkey" PRIMARY KEY ("Country_ID_Country", "Year_ID_year")
 );
 
 CREATE TABLE IF NOT EXISTS public."Power Consumed"
 (
     "ID_Consumed" serial NOT NULL,
-    "GWH" numeric(6, 2),
-    "PowerImport" numeric(10, 4),
+    "GWH" numeric(12, 2),
+    "PowerImport" numeric(12, 2),
     "Renewable_Energy" numeric(7, 4),
     CONSTRAINT "Power Consumed_pkey" PRIMARY KEY ("ID_Consumed")
 );
@@ -61,9 +75,9 @@ CREATE TABLE IF NOT EXISTS public."Environmental Indicator"
 CREATE TABLE IF NOT EXISTS public."GDP"
 (
     "ID_GDP" serial NOT NULL,
-    "GDP" integer,
-    "Investiment_Energy" numeric(6, 2),
-    "Health_Expendicture" numeric(6, 2),
+    "GDP" numeric(12, 2),
+    "Investment_Energy" numeric(15, 2),
+    "Health_Expenditure" numeric(15, 2),
     CONSTRAINT "GDP_pkey" PRIMARY KEY ("ID_GDP")
 );
 
@@ -71,34 +85,11 @@ CREATE TABLE IF NOT EXISTS public."IDH"
 (
     "ID_IDH" serial NOT NULL,
     "IDH" numeric(6, 2),
-    "Eletricity" numeric(6, 2),
+    "Electricity" numeric(6, 2),
     "Sanitation" numeric(6, 2),
     "Health" numeric(6, 2),
     "Standard_Living" numeric(6, 2),
-    CONSTRAINT "ID_IDH" PRIMARY KEY ("ID_IDH")
-);
-
-CREATE TABLE IF NOT EXISTS public."Year"
-(
-    "ID_year" serial NOT NULL,
-    year integer,
-    CONSTRAINT "Year_pkey" PRIMARY KEY ("ID_year")
-);
-
-CREATE TABLE IF NOT EXISTS public."Sector_Year"
-(
-    "Sector_ID_Sector" serial NOT NULL,
-    "Year_ID_year" serial NOT NULL,
-    "Country_ID_Country" serial NOT NULL,
-    "CO2_Emission" numeric(6, 2)
-);
-
-CREATE TABLE IF NOT EXISTS public."Sector"
-(
-    "ID_Sector" serial NOT NULL,
-    "Name" character varying(100) COLLATE pg_catalog."default",
-    "Descrition" character varying(200) COLLATE pg_catalog."default",
-    CONSTRAINT "Sector_pkey" PRIMARY KEY ("ID_Sector")
+    CONSTRAINT "IDH_pkey" PRIMARY KEY ("ID_IDH")
 );
 
 CREATE TABLE IF NOT EXISTS public."Power Source"
@@ -109,113 +100,80 @@ CREATE TABLE IF NOT EXISTS public."Power Source"
     CONSTRAINT "Power Source_pkey" PRIMARY KEY ("ID_Power")
 );
 
-ALTER TABLE IF EXISTS public."Country_Power Source"
-    ADD CONSTRAINT "Country_Power Source_Country_ID_Country_fkey" FOREIGN KEY ("Country_ID_Country")
-    REFERENCES public."Country" ("ID_Country") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public."Country_Power Source"
-    ADD CONSTRAINT "Country_Power Source_Power Source_ID_Power_fkey" FOREIGN KEY ("Power Source_ID_Power")
-    REFERENCES public."Power Source" ("ID_Power") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public."Country_Power Source"
-    ADD CONSTRAINT "Country_Power Source_Year_ID_year_fkey" FOREIGN KEY ("Year_ID_year")
-    REFERENCES public."Year" ("ID_year") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public."Country"
-    ADD CONSTRAINT "Country_Region_ID_Region_fkey" FOREIGN KEY ("Region_ID_Region")
-    REFERENCES public."Region" ("ID_Region") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public."Country_Year"
-    ADD CONSTRAINT "Country_Year_ConsumePower_ID_fkey" FOREIGN KEY ("ConsumePower_ID")
-    REFERENCES public."Power Consumed" ("ID_Consumed") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public."Country_Year"
-    ADD CONSTRAINT "Country_Year_Country_ID_Country_fkey" FOREIGN KEY ("Country_ID_Country")
-    REFERENCES public."Country" ("ID_Country") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public."Country_Year"
-    ADD CONSTRAINT "Country_Year_Enviromental_ID_fkey" FOREIGN KEY ("Enviromental_ID")
-    REFERENCES public."Environmental Indicator" ("ID_Environmental") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-CREATE INDEX IF NOT EXISTS "Country_Year_Enviromental_ID_key"
-    ON public."Country_Year"("Enviromental_ID");
-
-
-ALTER TABLE IF EXISTS public."Country_Year"
-    ADD CONSTRAINT "Country_Year_GDP_ID_fkey" FOREIGN KEY ("GDP_ID")
-    REFERENCES public."GDP" ("ID_GDP") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-CREATE INDEX IF NOT EXISTS "Country_Year_GDP_ID_key"
-    ON public."Country_Year"("GDP_ID");
-
-
-ALTER TABLE IF EXISTS public."Country_Year"
-    ADD CONSTRAINT "Country_Year_IDH_ID_fkey" FOREIGN KEY ("IDH_ID")
-    REFERENCES public."IDH" ("ID_IDH") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-CREATE INDEX IF NOT EXISTS "Country_Year_IDH_ID_key"
-    ON public."Country_Year"("IDH_ID");
-
-
-ALTER TABLE IF EXISTS public."Country_Year"
-    ADD CONSTRAINT "Country_Year_Year_ID_year_fkey" FOREIGN KEY ("Year_ID_year")
-    REFERENCES public."Year" ("ID_year") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public."Sector_Year"
-    ADD CONSTRAINT "Sector_Year_Country_ID_Country_fkey" FOREIGN KEY ("Country_ID_Country")
-    REFERENCES public."Country" ("ID_Country") MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
 ALTER TABLE IF EXISTS public."Sector_Year"
     ADD CONSTRAINT "Sector_Year_Sector_ID_Sector_fkey" FOREIGN KEY ("Sector_ID_Sector")
     REFERENCES public."Sector" ("ID_Sector") MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
+    ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public."Sector_Year"
     ADD CONSTRAINT "Sector_Year_Year_ID_year_fkey" FOREIGN KEY ("Year_ID_year")
     REFERENCES public."Year" ("ID_year") MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public."Country_Power Source"
+    ADD CONSTRAINT "Country_Power Source_Country_ID_Country_fkey" FOREIGN KEY ("Country_ID_Country")
+    REFERENCES public."Country" ("ID_Country") MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public."Country_Power Source"
+    ADD CONSTRAINT "Country_Power Source_Power Source_ID_Power_fkey" FOREIGN KEY ("Power Source_ID_Power")
+    REFERENCES public."Power Source" ("ID_Power") MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public."Country_Power Source"
+    ADD CONSTRAINT "Country_Power Source_Year_ID_year_fkey" FOREIGN KEY ("Year_ID_year")
+    REFERENCES public."Year" ("ID_year") MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public."Country_Year"
+    ADD CONSTRAINT "Country_Year_ConsumePower_ID_fkey" FOREIGN KEY ("ConsumePower_ID")
+    REFERENCES public."Power Consumed" ("ID_Consumed") MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public."Country_Year"
+    ADD CONSTRAINT "Country_Year_Country_ID_Country_fkey" FOREIGN KEY ("Country_ID_Country")
+    REFERENCES public."Country" ("ID_Country") MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public."Country_Year"
+    ADD CONSTRAINT "Country_Year_Environmental_ID_fkey" FOREIGN KEY ("Environmental_ID")
+    REFERENCES public."Environmental Indicator" ("ID_Environmental") MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public."Country_Year"
+    ADD CONSTRAINT "Country_Year_GDP_ID_fkey" FOREIGN KEY ("GDP_ID")
+    REFERENCES public."GDP" ("ID_GDP") MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public."Country_Year"
+    ADD CONSTRAINT "Country_Year_IDH_ID_fkey" FOREIGN KEY ("IDH_ID")
+    REFERENCES public."IDH" ("ID_IDH") MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
+
+
+ALTER TABLE IF EXISTS public."Country_Year"
+    ADD CONSTRAINT "Country_Year_Year_ID_year_fkey" FOREIGN KEY ("Year_ID_year")
+    REFERENCES public."Year" ("ID_year") MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
 
 END;

@@ -29,4 +29,6 @@ with engine.begin() as conn:
     df = pd.read_sql(query, conn)
     conn.close()
 
-df.to_csv("./Consultas/firstQuery.csv")
+    df.to_csv("./Consultas/firstQuery.csv")
+
+    print(df.to_string(index=False))

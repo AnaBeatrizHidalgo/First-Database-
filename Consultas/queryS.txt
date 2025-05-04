@@ -1,0 +1,11 @@
+SELECT  C."Name" AS country,
+        Y.year,
+        SUM( CASE WHEN PS."Renewable"     THEN CPS."Power_Generation" END ) AS renewable_twh,
+        SUM( CASE WHEN NOT PS."Renewable" THEN CPS."Power_Generation" END ) AS fossil_twh,
+        SUM(CPS."Power_Generation")                                           AS total_twh
+FROM    "Country_Power Source" CPS
+JOIN    "Country"      C  ON CPS."Country_ID_Country" = C."ID_Country"
+JOIN    "Year"         Y  ON Y.year                   = CPS."Year_ID_year"
+JOIN    "Power Source" PS ON CPS."Power Source_ID_Power" = PS."ID_Power"
+GROUP BY C."Name", Y.year
+ORDER BY Y.year DESC, total_twh DESC;

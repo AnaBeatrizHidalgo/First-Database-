@@ -1,0 +1,163 @@
+import os
+import pandas as pd
+from io import StringIO
+from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+
+# Carrega variáveis de ambiente do arquivo .env
+load_dotenv()
+
+# 1. Configuração da conexão com o banco de dados
+def get_db_connection():
+    DB_URL = os.getenv("DB_URL")
+    if not DB_URL:
+        raise ValueError("Variável de ambiente DB_URL não encontrada no arquivo .env")
+    return create_engine(DB_URL)
+
+# 2. Carregar o arquivo CSV
+def load_csv_data(file_path):
+    return pd.read_csv(file_path)
+
+# 3. Obter mapeamentos de ID das tabelas de referência
+def get_reference_mappings(engine):
+    mappings = {}
+    
+    # Mapeamento de países
+    with engine.connect() as conn:
+        result = conn.execute(text("""SELECT "ID_Country", "Name" FROM "Country" """))
+        mappings['countries'] = {row[1]: row[0] for row in result.fetchall()}
+    
+    # Mapeamento de anos
+    with engine.connect() as conn:
+        result = conn.execute(text("""SELECT "ID_year", "year" FROM "Year" """))
+        mappings['years'] = {row[1]: row[0] for row in result.fetchall()}
+    
+    # Mapeamento de fontes de energia
+    with engine.connect() as conn:
+        result = conn.execute(text("""SELECT "ID_Power", "Name" FROM "Power Source" """))
+        mappings['power_sources'] = {row[1]: row[0] for row in result.fetchall()}
+    
+    return mappings
+
+# 4. Processar os dados do CSV e preparar para inserção
+def process_data(df, mappings):
+    # Verificar e tratar valores ausentes
+    df.fillna(0, inplace=True)
+    
+    # Adicionar colunas de ID
+    df["Country_ID_Country"] = df['Country'].map(mappings['countries'])
+    df["Year_ID_year"] = df['Year'].map(mappings['years'])
+    df["Power Source_ID_Power"] = df['Power Source'].map(mappings['power_sources'])
+    
+    # Verificar mapeamentos ausentes
+    missing_countries = df[df["Country_ID_Country"].isna()]["Country"].unique()
+    missing_years = df[df["Year_ID_year"].isna()]["Year"].unique()
+    missing_sources = df[df["Power Source_ID_Power"].isna()]["Power Source"].unique()
+    
+    if len(missing_countries) > 0:
+        print(f"Aviso: Países não encontrados no banco: {missing_countries}")
+    if len(missing_years) > 0:
+        print(f"Aviso: Anos não encontrados no banco: {missing_years}")
+    if len(missing_sources) > 0:
+        print(f"Aviso: Fontes de energia não encontradas no banco: {missing_sources}")
+    
+    # Filtrar apenas linhas com todos os mapeamentos válidos
+    df = df.dropna(subset=["Country_ID_Country", "Year_ID_year", "Power Source_ID_Power"])
+    
+    # Converter tipos
+    df["Country_ID_Country"] = df["Country_ID_Country"].astype(int)
+    df["Year_ID_year"] = df["Year_ID_year"].astype(int)
+    df["Power Source_ID_Power"] = df["Power Source_ID_Power"].astype(int)
+    
+    # Selecionar colunas para inserção
+    result_df = df[[
+        "Country_ID_Country", 
+        "Year_ID_year", 
+        "Power Source_ID_Power", 
+        "Power_Generation", 
+        "CO2_Emission"
+    ]]
+    
+    return result_df
+
+# 5. Inserir dados no banco usando COPY (ajustado para SQLAlchemy)
+def insert_data_with_copy(engine, df):
+    # Criar um buffer de string para os dados
+    buffer = StringIO()
+    
+    # Escrever os dados no buffer no formato CSV
+    df.to_csv(buffer, sep='\t', header=False, index=False)
+    buffer.seek(0)
+    
+    with engine.connect() as conn:
+        # Iniciar uma transação
+        with conn.begin():
+            # Criar tabela temporária para carregamento
+            conn.execute(text("""
+                CREATE TEMP TABLE temp_country_year (
+                    "Country_ID_Country" INT,
+                    "Year_ID_year" INT,
+                    "Power Source_ID_Power" INT,
+                    "Power_Generation" FLOAT,
+                    "CO2_Emission" FLOAT
+                )
+            """))
+            
+            # Carregar dados na tabela temporária usando COPY
+            # Nota: O método COPY direto não está disponível no SQLAlchemy, então usaremos uma alternativa
+            cursor = conn.connection.cursor()
+            cursor.copy_from(buffer, 'temp_country_year', sep='\t', null='')
+            
+            # Inserir na tabela final, evitando duplicatas
+            conn.execute(text("""
+                INSERT INTO "Country_Power Source" (
+                    "Country_ID_Country", 
+                    "Year_ID_year", 
+                    "Power Source_ID_Power", 
+                    "Power_Generation", 
+                    "CO2_Emission"
+                )
+                SELECT 
+                    "Country_ID_Country",
+                    "Year_ID_year",
+                    "Power Source_ID_Power",
+                    "Power_Generation",
+                    "CO2_Emission"
+                FROM temp_country_year
+                ON CONFLICT DO NOTHING
+            """))
+            
+            # Limpar tabela temporária
+            conn.execute(text("DROP TABLE temp_country_year"))
+
+# Função principal
+def main(csv_file_path):
+    engine = None
+    try:
+        # Estabelecer conexão
+        engine = get_db_connection()
+        
+        # Carregar dados do CSV
+        df = load_csv_data(csv_file_path)
+        
+        # Obter mapeamentos de ID
+        mappings = get_reference_mappings(engine)
+        
+        # Processar dados
+        processed_df = process_data(df, mappings)
+        
+        # Inserir dados no banco
+        insert_data_with_copy(engine, processed_df)
+        
+        print("Dados importados com sucesso!")
+        
+    except Exception as e:
+        print(f"Erro durante a importação: {e}")
+    finally:
+        if engine:
+            engine.dispose()
+
+# Executar
+if __name__ == "__main__":
+    csv_file_path = "./Datasets/EnergyData.csv"
+    main(csv_file_path)
