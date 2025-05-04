@@ -56,9 +56,8 @@ CREATE TABLE IF NOT EXISTS public."Sector" (
 CREATE TABLE IF NOT EXISTS public."Sector_Year" (
     "Sector_ID_Sector"   INT REFERENCES public."Sector",
     "Year_ID_year"       INT REFERENCES public."Year",
-    "Country_ID_Country" INT REFERENCES public."Country",
     "CO2_Emission"       NUMERIC(12,2),
-    PRIMARY KEY ("Sector_ID_Sector","Year_ID_year","Country_ID_Country")
+    PRIMARY KEY ("Sector_ID_Sector","Year_ID_year")
 );
 
 CREATE TABLE IF NOT EXISTS public."Country_Power Source" (
