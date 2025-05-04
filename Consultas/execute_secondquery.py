@@ -1,3 +1,13 @@
+import pandas as pd
+from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+DB_URL = os.getenv("DB_URL")
+engine = create_engine(DB_URL)
+
+query = text('''
 SELECT  C."Name" AS country,
         Y.year,
         SUM( CASE WHEN PS."Renewable"     THEN CPS."Power_Generation" END ) AS renewable_twh,
@@ -9,3 +19,10 @@ JOIN    "Year"         Y  ON Y.year                   = CPS."Year_ID_year"
 JOIN    "Power Source" PS ON CPS."Power Source_ID_Power" = PS."ID_Power"
 GROUP BY C."Name", Y.year
 ORDER BY Y.year DESC, total_twh DESC;
+''')
+
+with engine.begin() as conn:
+    df = pd.read_sql(query, conn)
+    conn.close()
+
+df.to_csv("./Consultas/secondQuery.csv")

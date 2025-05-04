@@ -1,3 +1,13 @@
+import pandas as pd
+from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+DB_URL = os.getenv("DB_URL")
+engine = create_engine(DB_URL)
+
+query = text('''
 SELECT  C."Name"            AS country,
         Y.year,
         I."Electricity"     AS electricity_index,
@@ -12,3 +22,9 @@ LEFT JOIN "IDH"         I  ON I."ID_IDH"     = CY."IDH_ID"
 LEFT JOIN "Power Consumed" P ON P."ID_Consumed" = CY."ConsumePower_ID"
 WHERE   I."Electricity" IS NOT NULL
 ORDER BY electricity_index DESC, import_gwh DESC;
+''')
+
+with engine.begin() as conn:
+    df = pd.read_sql(query, conn)
+
+df.to_csv("./Consultas/fifthQuery.csv")
