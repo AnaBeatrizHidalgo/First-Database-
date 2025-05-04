@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 load_dotenv()
 engine = create_engine(os.getenv("DB_URL"))
 
-PATH_POP = Path("Datasets/human-development-index-vs-gdp-per-capita.csv")
-YEAR_MIN, YEAR_MAX = 1960, 2025           
+PATH_POP = Path("../Datasets/human-development-index-vs-gdp-per-capita.csv")
+YEAR_MIN, YEAR_MAX = 2000, 2025           
 
 def clean_country(val) -> str:
     if pd.isna(val):
