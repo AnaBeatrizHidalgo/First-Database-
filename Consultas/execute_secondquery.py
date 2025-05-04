@@ -12,11 +12,10 @@ SELECT  C."Name" AS Country,
         Y.year,
         PS."Name" AS Energy,
         PS."Renewable",
-        CPS."Power_Generation",
-        CPS."CO2_Emission" 
+        CPS."Power_Generation"
 FROM    "Country_Power Source" CPS
 JOIN    "Country"      C  ON CPS."Country_ID_Country" = C."ID_Country"
-JOIN    "Year"         Y  ON Y.year                   = CPS."Year_ID_year"
+JOIN    "Year"         Y  ON Y."ID_year" = CPS."Year_ID_year"
 JOIN    "Power Source" PS ON CPS."Power Source_ID_Power" = PS."ID_Power"
 ORDER BY Y.year DESC, C."Name";
 ''')
