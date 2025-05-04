@@ -5,18 +5,12 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
-# ────────────────────────────────
-# 1. Config
-# ────────────────────────────────
 load_dotenv()
 engine = create_engine(os.getenv("DB_URL"))
 
-PATH_ENV = Path("./CombinandoEnviromental.csv")   # CSV anexado
-YEAR_MIN, YEAR_MAX = 2000, 2025                  # ajuste se quiser
+PATH_ENV = Path("./CombinandoEnviromental.csv")  
+YEAR_MIN, YEAR_MAX = 2000, 2025                  
 
-# ────────────────────────────────
-# 2. Helpers
-# ────────────────────────────────
 def clean_country(val) -> str:
     if pd.isna(val):
         return ''
@@ -35,9 +29,6 @@ def py_val(v):
         return v.item()
     return v
 
-# ────────────────────────────────
-# 3. Países e anos que JÁ existem
-# ────────────────────────────────
 with engine.begin() as conn:
     country_map = (
         pd.read_sql('SELECT "ID_Country", "Name" FROM public."Country"', conn)
@@ -45,14 +36,12 @@ with engine.begin() as conn:
     )
     year_map = pd.read_sql('SELECT "ID_year", "year" FROM public."Year"', conn)
 
-# ────────────────────────────────
-# 4. Lê o CSV ambiental
-# ────────────────────────────────
+
 env = (
     pd.read_csv(PATH_ENV)
       .rename(columns={"Country": "country",
                        "Year": "year",
-                       "CO2 Emission": "co2",      # nomes no CSV
+                       "CO2 Emission": "co2",     
                        "ELUC": "eluc"})
 )
 env = env[env["year"].between(YEAR_MIN, YEAR_MAX)].copy()
@@ -60,9 +49,6 @@ env["country_key"] = env["country"].apply(clean_country)
 env["co2"]  = env["co2"].apply(parse_number)
 env["eluc"] = env["eluc"].apply(parse_number)
 
-# ────────────────────────────────
-# 5. Casa país‑ano existentes
-# ────────────────────────────────
 df = (env
       .merge(country_map[["ID_Country", "country_key"]], on="country_key", how="inner")
       .merge(year_map, on="year", how="inner")
@@ -73,9 +59,6 @@ df_final = (df[["ID_Country", "ID_year", "co2", "eluc"]]
             .reset_index(drop=True)
 )
 
-# ────────────────────────────────
-# 6. INSERT + UPDATE
-# ────────────────────────────────
 update_sql = text("""
     UPDATE "Country_Year"
        SET "Environmental_ID" = :env_id          -- campo da Country_Year
@@ -86,17 +69,15 @@ update_sql = text("""
 
 with engine.begin() as conn:
     for row in df_final.itertuples(index=False):
-        # --------- prepara INSERT dinâmico ------------
         db_cols, params = [], {}
 
         if row.co2 is not None:
-            db_cols.append('"CO2_Emision"')          # grafia da coluna na tabela
+            db_cols.append('"CO2_Emision"')         
             params["co2"] = py_val(row.co2)
         if row.eluc is not None:
             db_cols.append('"ELUC"')
             params["eluc"] = py_val(row.eluc)
 
-        # pula se linha vazia
         if not db_cols:
             continue
 
@@ -110,7 +91,6 @@ with engine.begin() as conn:
         """)
         new_env_id = conn.execute(insert_sql, params).scalar_one()
 
-        # --------- vincula à Country_Year -------------
         conn.execute(update_sql, {
             "env_id"    : new_env_id,
             "country_id": int(row.ID_Country),

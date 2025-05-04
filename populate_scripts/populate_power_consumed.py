@@ -5,18 +5,13 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
-# ────────────────────────────────
-# 1. Config
-# ────────────────────────────────
+
 load_dotenv()
 engine = create_engine(os.getenv("DB_URL"))
 
 PATH_PWR = Path("./PowerConsumid.csv")
 YEAR_MIN, YEAR_MAX = 2000, 2025
 
-# ────────────────────────────────
-# 2. Helpers
-# ────────────────────────────────
 def clean_country(val) -> str:
     if pd.isna(val):
         return ''
@@ -35,9 +30,6 @@ def py_val(v):
         return v.item()
     return v
 
-# ────────────────────────────────
-# 3. Países / anos existentes
-# ────────────────────────────────
 with engine.begin() as conn:
     country_map = (
         pd.read_sql('SELECT "ID_Country", "Name" FROM public."Country"', conn)
@@ -45,15 +37,11 @@ with engine.begin() as conn:
     )
     year_map = pd.read_sql('SELECT "ID_year", "year" FROM public."Year"', conn)
 
-# ────────────────────────────────
-# 4. Lê o CSV de energia
-# ────────────────────────────────
 pwr = (
     pd.read_csv(PATH_PWR)
       .rename(columns={
           "Country" : "country",
           "Year"    : "year",
-          # nomes exatos do cabeçalho informado ↓↓↓
           "Energy imports, net (% of energy use)" :
               "power_import",
           "Renewable energy consumption (% of total final energy consumption)" :
@@ -65,25 +53,20 @@ pwr = (
 pwr = pwr[pwr["year"].between(YEAR_MIN, YEAR_MAX)].copy()
 pwr["country_key"] = pwr["country"].apply(clean_country)
 pwr["gwh"]           = pwr["gwh"].apply(parse_number)
-pwr["power_import"]  = pwr["power_import"].apply(parse_number)   ### ALTERADO
+pwr["power_import"]  = pwr["power_import"].apply(parse_number)   
 pwr["renewable"]     = pwr["renewable"].apply(parse_number)
 
-# ────────────────────────────────
-# 5. Faz join com países / anos
-# ────────────────────────────────
+
 df = (pwr
       .merge(country_map[["ID_Country", "country_key"]], on="country_key", how="inner")
       .merge(year_map, on="year", how="inner")
 )
 
-df_final = (df[["ID_Country", "ID_year", "gwh", "power_import", "renewable"]]   ### ALTERADO
+df_final = (df[["ID_Country", "ID_year", "gwh", "power_import", "renewable"]]
             .drop_duplicates(subset=["ID_Country", "ID_year"])
             .reset_index(drop=True)
 )
 
-# ────────────────────────────────
-# 6. INSERT + UPDATE
-# ────────────────────────────────
 update_sql = text("""
     UPDATE "Country_Year"
        SET "ConsumePower_ID" = :pwr_id
@@ -99,7 +82,7 @@ with engine.begin() as conn:
         if row.gwh is not None:
             db_cols.append('"GWH"')
             params["gwh"] = py_val(row.gwh)
-        if row.power_import is not None:                ### ALTERADO
+        if row.power_import is not None:               
             db_cols.append('"PowerImport"')
             params["power_import"] = py_val(row.power_import)
         if row.renewable is not None:

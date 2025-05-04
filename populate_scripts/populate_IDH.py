@@ -5,9 +5,7 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
-# ────────────────────────────────
-# 1. Config
-# ────────────────────────────────
+
 load_dotenv()
 engine = create_engine(os.getenv("DB_URL"))
 
@@ -16,9 +14,6 @@ PATH_GMPI_T1  = Path("./2024_gMPI_Table1and2 - gMPI_Table1.csv")
 PATH_GMPI_T2  = Path("./2024_gMPI_Table1and2 - Table2.csv")
 YEAR_MIN, YEAR_MAX = 2000, 2025
 
-# ────────────────────────────────
-# 2. Funções utilitárias
-# ────────────────────────────────
 def clean_country(val) -> str:
     if pd.isna(val):
         return ''
@@ -47,9 +42,6 @@ def py_val(v):
         return v.item()
     return v
 
-# ────────────────────────────────
-# 3. Mapeia países ⇄ anos que JÁ existem no banco
-# ────────────────────────────────
 with engine.begin() as conn:
     country_map = (
         pd.read_sql('SELECT "ID_Country", "Name" FROM public."Country"', conn)
@@ -57,9 +49,6 @@ with engine.begin() as conn:
     )
     year_map = pd.read_sql('SELECT "ID_year", "year" FROM public."Year"', conn)
 
-# ────────────────────────────────
-# 4. Carrega planilhas
-# ────────────────────────────────
 idh = (
     pd.read_csv(PATH_IDH)
       .rename(columns={"Entity": "country",
@@ -102,9 +91,7 @@ t2["electricity"] = t2["electricity"].apply(parse_number).apply(scale10_to_int).
 t2["sanitation"]  = t2["sanitation"].apply(parse_number).apply(scale10_to_int).astype("Int64")
 t2 = t2.dropna(subset=["year"])
 
-# ────────────────────────────────
-# 5. Junta indicadores e filtra só países/anos válidos no banco
-# ────────────────────────────────
+
 indicators = (
     pd.merge(t1, t2[["country_key", "year", "electricity", "sanitation"]],
              on=["country_key", "year"], how="outer")
@@ -126,9 +113,7 @@ df_final = (df[["ID_Country", "ID_year",
 
 df_final = df_final.dropna(subset=["idh"]).reset_index(drop=True)
 
-# ────────────────────────────────
-# 6. Insere na tabela IDH e atualiza Country_Year
-# ────────────────────────────────
+
 update_sql = text("""
     UPDATE "Country_Year"
        SET "IDH_ID" = :idh_id
@@ -139,15 +124,12 @@ update_sql = text("""
 
 with engine.begin() as conn:
     for row in df_final.itertuples(index=False):
-        # --------- constrói INSERT dinâmico ------------
         db_cols = []
         params  = {}
 
-        # coluna obrigatória
         db_cols.append('"IDH"')
         params["idh"] = py_val(row.idh)
 
-        # opcionais: mapeia nome‑dataframe → nome‑SQL
         optional = {
             "electricity"    : '"Electricity"',
             "sanitation"     : '"Sanitation"',
@@ -170,7 +152,6 @@ with engine.begin() as conn:
         """)
         new_idh_id = conn.execute(insert_sql, params).scalar_one()
 
-        # --------- vincula à Country_Year ---------------
         conn.execute(update_sql, {
             "idh_id"    : new_idh_id,
             "country_id": int(row.ID_Country),

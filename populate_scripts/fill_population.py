@@ -5,18 +5,13 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
-# ────────────────────────────────
-# 1. Config
-# ────────────────────────────────
+
 load_dotenv()
 engine = create_engine(os.getenv("DB_URL"))
 
 PATH_POP = Path("./human-development-index-vs-gdp-per-capita.csv")
-YEAR_MIN, YEAR_MAX = 1960, 2025            # população costuma ter histórico longo
+YEAR_MIN, YEAR_MAX = 1960, 2025           
 
-# ────────────────────────────────
-# 2. Helpers
-# ────────────────────────────────
 def clean_country(val) -> str:
     if pd.isna(val):
         return ''
@@ -27,9 +22,7 @@ def py_int(v):
         return None
     return int(v)
 
-# ────────────────────────────────
-# 3. Países / anos no banco
-# ────────────────────────────────
+
 with engine.begin() as conn:
     country_map = (
         pd.read_sql('SELECT "ID_Country", "Name" FROM public."Country"', conn)
@@ -37,9 +30,7 @@ with engine.begin() as conn:
     )
     year_map = pd.read_sql('SELECT "ID_year", "year" FROM public."Year"', conn)
 
-# ────────────────────────────────
-# 4. Carrega população
-# ────────────────────────────────
+
 pop = (
     pd.read_csv(PATH_POP)
       .rename(columns={
@@ -53,9 +44,6 @@ pop = pop[pop["year"].between(YEAR_MIN, YEAR_MAX)].copy()
 pop["country_key"] = pop["country"].apply(clean_country)
 pop["population"]  = pop["population"].apply(py_int)
 
-# ────────────────────────────────
-# 5. Junta com IDs já existentes
-# ────────────────────────────────
 df = (pop
       .merge(country_map[["ID_Country", "country_key"]], on="country_key", how="inner")
       .merge(year_map, on="year", how="inner")
@@ -67,9 +55,6 @@ df_final = (df[["ID_Country", "ID_year", "population"]]
             .reset_index(drop=True)
 )
 
-# ────────────────────────────────
-# 6. Atualiza apenas onde faz sentido
-# ────────────────────────────────
 update_sql = text("""
     UPDATE "Country_Year"
        SET "Population" = :pop

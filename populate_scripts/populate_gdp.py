@@ -5,18 +5,12 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
-# ────────────────────────────────
-# 1. Config
-# ────────────────────────────────
 load_dotenv()
 engine = create_engine(os.getenv("DB_URL"))
 
-PATH_GDP = Path("./country_year_gdp_energy_health.csv")   # arquivo que você gerou
+PATH_GDP = Path("./country_year_gdp_energy_health.csv")  
 YEAR_MIN, YEAR_MAX = 1960, 2025
 
-# ────────────────────────────────
-# 2. Helpers
-# ────────────────────────────────
 def clean_country(val) -> str:
     if pd.isna(val):
         return ''
@@ -37,9 +31,6 @@ def py_val(v):
         return v.item()
     return v
 
-# ────────────────────────────────
-# 3. Países e anos existentes
-# ────────────────────────────────
 with engine.begin() as conn:
     country_map = (
         pd.read_sql('SELECT "ID_Country", "Name" FROM public."Country"', conn)
@@ -47,14 +38,11 @@ with engine.begin() as conn:
     )
     year_map = pd.read_sql('SELECT "ID_year", "year" FROM public."Year"', conn)
 
-# ────────────────────────────────
-# 4. Carrega CSV combinado
-# ────────────────────────────────
 df_src = (
     pd.read_csv(PATH_GDP)
       .rename(columns={
           "country_name": "country",
-          "country_code": "code"          # não precisamos do código, mas mantemos
+          "country_code": "code"          
       })
 )
 
@@ -63,12 +51,8 @@ df_src["gdp"]               = df_src["gdp"].apply(parse_float)
 df_src["investment_energy"] = df_src["investment_energy"].apply(parse_float)
 df_src["health_expenditure"] = df_src["health_expenditure"].apply(parse_float)
 
-# restringe a anos válidos (opcional)
 df_src = df_src[df_src["year"].between(YEAR_MIN, YEAR_MAX)]
 
-# ────────────────────────────────
-# 5. Faz join com IDs do banco
-# ────────────────────────────────
 df = (df_src
       .merge(country_map[["ID_Country", "country_key"]], on="country_key", how="inner")
       .merge(year_map, left_on="year", right_on="year", how="inner")
@@ -76,14 +60,11 @@ df = (df_src
 
 df_final = (df[["ID_Country", "ID_year", "gdp",
                 "investment_energy", "health_expenditure"]]
-            .dropna(subset=["gdp"])                     # GDP é obrigatório
+            .dropna(subset=["gdp"])                     
             .drop_duplicates(subset=["ID_Country", "ID_year"])
             .reset_index(drop=True)
 )
 
-# ────────────────────────────────
-# 6. INSERT em GDP + UPDATE Country_Year
-# ────────────────────────────────
 update_sql = text("""
     UPDATE "Country_Year"
        SET "GDP_ID" = :gdp_id
@@ -96,14 +77,12 @@ with engine.begin() as conn:
     for row in df_final.itertuples(index=False):
         cols, params = [], {}
 
-        # campo obrigatório
         cols.append('"GDP"')
         params["gdp"] = py_val(row.gdp)
 
-        # opcionais — ajuste nomes se no schema estiverem diferentes
         optional_cols = {
             "investment_energy" : '"Investment_Energy"',
-            "health_expenditure": '"Health_Expenditure"',   # troque p/ "Health_Expendicture" se for o caso
+            "health_expenditure": '"Health_Expenditure"',   
         }
         for attr, db_col in optional_cols.items():
             val = py_val(getattr(row, attr))
@@ -121,7 +100,6 @@ with engine.begin() as conn:
         """)
         new_gdp_id = conn.execute(insert_sql, params).scalar_one()
 
-        # relaciona ao Country_Year
         conn.execute(update_sql, {
             "gdp_id"    : new_gdp_id,
             "country_id": int(row.ID_Country),
