@@ -1,16 +1,9 @@
 """Consultas iniciais para analisar de maneira geral as informações do nosso banco"""
-import psycopg2
+import ConectionBD
 from sqlalchemy import create_engime, Column, Integer, String, ForeignKey, text
 from sqlalchemy.orm import relationship, sessionmaker, declarative_base
 
-conn = psycopg2.connect(
-    dbname= "MC536",
-    user= "postgres",
-    password= "123",
-    host= "localhost",
-    port= "5432"
-)
-
+conn = ConectionBD.get_db_connection()
 cursor = conn.cursor()
 
 firstQuery = cursor.execute("SELECT " \

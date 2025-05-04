@@ -1,24 +1,7 @@
-import psycopg2
+import ConectionBD
 import pandas as pd
 from io import StringIO
 from sqlalchemy import create_engine
-
-# Configurações de conexão
-DB_NAME = "ProjectBD"
-DB_USER = "postgres"
-DB_PASSWORD = "123"
-DB_HOST = "localhost"
-DB_PORT = "5432"
-
-# 1. Conectar ao banco de dados
-def get_db_connection():
-    return psycopg2.connect(
-        dbname=DB_NAME,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        host=DB_HOST,
-        port=DB_PORT
-    )
 
 # 2. Carregar o arquivo CSV
 def load_csv_data(file_path):
@@ -104,7 +87,7 @@ def main(csv_file_path):
     conn = None
     try:
         # Estabelecer conexão
-        conn = get_db_connection()
+        conn = ConectionBD.get_db_connection()
         
         # Carregar dados do CSV
         df = load_csv_data(csv_file_path)

@@ -45,16 +45,16 @@ CREATE TABLE IF NOT EXISTS public."Power Consumed"
 (
     "ID_Consumed" serial NOT NULL,
     "GWH" numeric(6, 2),
-    "PowerImport" numeric(6, 2),
-    "Renewable_Energy" numeric(6, 2),
+    "PowerImport" numeric(10, 4),
+    "Renewable_Energy" numeric(7, 4),
     CONSTRAINT "Power Consumed_pkey" PRIMARY KEY ("ID_Consumed")
 );
 
 CREATE TABLE IF NOT EXISTS public."Environmental Indicator"
 (
     "ID_Environmental" serial NOT NULL,
-    "ELUC" numeric(6, 2),
-    "CO2_Emision" numeric(6, 2),
+    "ELUC" numeric(15, 10),
+    "CO2_Emision" numeric(15, 10),
     CONSTRAINT "Environmental Indicator_pkey" PRIMARY KEY ("ID_Environmental")
 );
 

@@ -1,13 +1,7 @@
-import psycopg2
+import ConectionBD
 from sqlalchemy import create_engine, text
 
-conn = psycopg2.connect(
-    dbname= "ProjectBD",
-    user= "postgres",
-    password= "123",
-    host= "localhost",
-    port= "5432"
-)
+conn = ConectionBD.get_db_connection()
 
 cursor = conn.cursor()
 
