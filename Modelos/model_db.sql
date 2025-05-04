@@ -1,7 +1,5 @@
 BEGIN;
 
--- ───────────────── TABLES ──────────────────
-
 CREATE TABLE IF NOT EXISTS public."Country" (
     "ID_Country"  SERIAL PRIMARY KEY,
     "Name"        VARCHAR(100)
@@ -9,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public."Country" (
 
 CREATE TABLE IF NOT EXISTS public."Year" (
     "ID_year"  SERIAL PRIMARY KEY,
-    year       INT UNIQUE          -- cada ano só aparece uma vez
+    year       INT UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS public."Power Source" (
