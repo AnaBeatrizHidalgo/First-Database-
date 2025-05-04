@@ -8,7 +8,7 @@ load_dotenv()
 DB_URL = os.getenv("DB_URL")
 engine = create_engine(DB_URL)
 
-countries = pd.read_csv("WDICountry.csv")
+countries = pd.read_csv("Datasets/WDICountry.csv")
 
 df_country = countries[['Table Name']].rename(columns={
     'Table Name': 'Name',
