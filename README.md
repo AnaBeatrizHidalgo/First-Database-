@@ -1,7 +1,7 @@
 # First-Database
 Projeto criado por:
 - Ana Beatriz Hidalgo(248238)
-- André...
+- André Lucas Loubet Souza(253333)
 
 Este projeto cria um banco de dados que relaciona o desenvolvimento do pais com sua produção/gasto de energia renovavél
 Estrutura do projeto:
