@@ -83,4 +83,4 @@ with engine.begin() as conn:
     """
     conn.execute(text(insert_sql))
 
-print('Tabela "Country_Power Source" populada com sucesso! ⚡🚀')
+print('Tabela "Country_Power Source" populada com sucesso! 🚀')

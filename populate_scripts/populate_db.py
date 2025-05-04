@@ -72,13 +72,11 @@ def run_script(py_file: str | Path) -> None:
     print(f"\n🚀  Executando {py_path.name} …")
     subprocess.run([sys.executable, str(py_path)], check=True)
 
-print("\n=== 1/9 – Criando o schema do banco ===")
 MODEL_SQL = ROOT / "../Modelos/model_db.sql"
 if not MODEL_SQL.exists():
     sys.exit("Arquivo model_db.sql não encontrado!")
 run_sql_file(MODEL_SQL)
 
-print("\n=== 2/9 – Populando tabela Year ===")
 current_year = date.today().year
 sql_year = f"""
 INSERT INTO public."Year"(year)
@@ -87,11 +85,9 @@ ON CONFLICT DO NOTHING;"""
 run_sql(sql_year)
 print("✅ Year pronta!")
 
-print("\n=== 3/9 – Scripts de país e setor ===")
 for script in ("populate_country.py", "populate_sector.py", "populate_sector_year.py"):
     run_script(script)
 
-print("\n=== 4/9 – Populando tabela Power Source ===")
 sql_power_source = """
 INSERT INTO public."Power Source" ("Name", "Renewable") VALUES
  ('Other renewables excluding bioenergy', true),
@@ -107,10 +103,8 @@ ON CONFLICT DO NOTHING;"""
 run_sql(sql_power_source)
 print("✅ Power Source pronta!")
 
-print("\n=== 5/9 – Ligando Country x Power Source ===")
 run_script("populate_country_power_source.py")
 
-print("\n=== 6/9 – Populando tabela Country_Year ===")
 sql_country_year = f"""
 INSERT INTO public."Country_Year" ("Country_ID_Country", "Year_ID_year")
 SELECT c."ID_Country", y."ID_year"
@@ -121,7 +115,6 @@ ON CONFLICT DO NOTHING;"""
 run_sql(sql_country_year)
 print("✅ Country_Year pronta!")
 
-print("\n=== 7/9 – Indicadores (ambiente, IDH, GDP, energia, população) ===")
 for script in [
     "populate_environmental.py",
     "populate_IDH.py",

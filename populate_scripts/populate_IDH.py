@@ -157,4 +157,5 @@ with engine.begin() as conn:
             "country_id": int(row.ID_Country),
             "year_id"   : int(row.ID_year),
         })
+
 print(f"{len(df_final)} linhas gravadas e vinculadas a Country_Year ✔️")

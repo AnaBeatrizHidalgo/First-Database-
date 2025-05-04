@@ -18,7 +18,6 @@ df['EDGAR Country Code'] = df['EDGAR Country Code'].astype(str).str.strip().str.
 
 df_global = df[df['EDGAR Country Code'] == 'GLOBAL TOTAL']
 
-print(f"Linhas encontradas como 'GLOBAL TOTAL': {len(df_global)}")
 if df_global.empty:
     raise ValueError("Nenhuma linha com 'GLOBAL TOTAL' encontrada. Verifique o dataset!")
 
@@ -56,10 +55,6 @@ for _, row in df_global.iterrows():
             })
 
 df_final = pd.DataFrame(records)
-print(df_final)
-
-print(f"Total de registros para inserir: {len(df_final)}")
-print(df_final.head())
 
 if not df_final.empty:
     with engine.begin() as conn:
