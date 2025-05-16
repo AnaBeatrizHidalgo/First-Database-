@@ -13,7 +13,6 @@ Este projeto foi desenvolvido como trabalho da disciplina MC536 – Banco de Dad
 
 É implementado um banco de dados PostgreSQL para armazenar e analisar informações relacionadas aos ODS selecionados. A modelagem abrange desde o modelo conceitual até o modelo físico, e a população dos dados é feita via script Python.
 
----
 
 ## Sumário
 
@@ -28,28 +27,29 @@ Este projeto foi desenvolvido como trabalho da disciplina MC536 – Banco de Dad
 [Consultas SQL](#consultas-sql)  
 [Scripts Extras](#scripts-extras)  
 
----
+
 
 ## ✅ Objetivos
 
-- Modelar conceitual e logicamente os dados referentes aos ODS 03, 07 e 13.  
+- Modelar conceitual e logicamente os dados relacionados as ODS 03, 07 e 13.  
 - Implementar a estrutura física (tabelas, chaves primárias/estrangeiras) no PostgreSQL.  
 - Criar scripts de carga automatizada dos dados.  
 - Desenvolver consultas SQL para extrair insights relevantes.
 
----
+
 
 ## 📂 Estrutura do Repositório
+```
 First-Database/
-├── Consultas/ # Arquivos .sql com consultas pré-definidas
+├── Consultas/ # Arquivos com consultas pré-definidas
 ├── Datasets/ # Conjuntos de dados brutos (CSV, etc.)
 ├── Modelos/ # Diagramas ER conceitual, lógico e físico
-├── Scripts Extras/ # Scripts auxiliares (ex.: procedures, funções, índices)
+├── Scripts Extras/ # Scripts auxiliares
 ├── populate_scripts/ # Script Python para criação e carga de tabelas
 ├── .gitignore
 └── README.md
+```
 
----
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -59,7 +59,7 @@ First-Database/
 
 3. **Python 3.8+** e **pip**.
 
----
+
 
 ## 🚀 Configuração e Execução
 
@@ -92,9 +92,11 @@ python populate_scripts/populate_db.py
 Os diagramas de modelo estão em `Modelos/`:
 
 - `Conceitual.png` - Modelo Conceitual (ERD)
-![Visão do Modelo Conceitual](\Modelos\modeloConceitual.drawio.png)
+![Visão do Modelo Conceitual](Modelos/modeloConceitual.drawio.png)
+
 - `Logico.png` - Modelo Lógico (relacional)
-![Visão do Modelo Logico](\Modelos\ModeloRelacional.png)
+![Visão do Modelo Logico](Modelos/ModeloRelacional.png)
+
 - `Fisico.png` - DDL com as instruções `CREATE TABLE`
 
 ## 📊 População do Banco
@@ -123,16 +125,12 @@ Em `Consultas/ estão as consultas mais relevantes para análise, por exemplo:
 
 - `/execute_fifthquery.py`
 
-Certifique-se de substituir `<usuario>` e `<nome_do_banco>` pelos valores corretos.
+Certifique-se de substituir `<usuario>`, `<senha>`  e `<nome_do_banco>` pelos valores corretos.
 
 ## 🔧 Scripts Extras
 
 Pasta com scripts adicionais para:
 
-- Criação de índices otimizados.
-
-- Funções armazenadas para cálculos recorrentes.
-
-- Gatilhos (triggers) de auditoria.
+- Para organização dos arquivos csv ou exel
 
 Use conforme necessidade, consultando o cabeçalho de cada arquivo.
