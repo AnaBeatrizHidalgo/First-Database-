@@ -90,11 +90,12 @@ for script in ("populate_country.py", "populate_sector.py", "populate_sector_yea
 
 sql_power_source = """
 INSERT INTO public."Power Source" ("Name", "Renewable") VALUES
- ('Other renewables excluding bioenergy', true),
+ ('Other renewables', true),
  ('Bioenergy', true),
  ('Solar', true),
  ('Wind', true),
  ('Hydro', true),
+ ('Other Fossil', false),
  ('Nuclear', false),
  ('Oil', false),
  ('Gas', false),
