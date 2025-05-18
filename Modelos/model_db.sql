@@ -57,11 +57,36 @@ CREATE TABLE IF NOT EXISTS public."Sector_Year" (
     PRIMARY KEY ("Sector_ID_Sector","Year_ID_year")
 );
 
+CREATE TABLE public."Sector_Country_Year" (
+    "ID_Sector_Country_Year" serial PRIMARY KEY,
+
+    "Sector_ID_Sector"   integer NOT NULL
+        REFERENCES public."Sector"("ID_Sector")
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    "Country_ID_Country" integer NOT NULL
+        REFERENCES public."Country"("ID_Country")
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    "Year_ID_year"       integer NOT NULL
+        REFERENCES public."Year"("ID_year")
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    "CO2_Emission"       numeric(12,2),
+
+    CONSTRAINT uq_sector_country_year UNIQUE
+        ("Sector_ID_Sector","Country_ID_Country","Year_ID_year")
+);
+
+CREATE INDEX idx_scy_country       ON public."Sector_Country_Year" ("Country_ID_Country");
+CREATE INDEX idx_scy_sector_year   ON public."Sector_Country_Year" ("Sector_ID_Sector","Year_ID_year");
+
 CREATE TABLE IF NOT EXISTS public."Country_Power Source" (
     "Country_ID_Country" INT REFERENCES public."Country",
     "Power Source_ID_Power" INT REFERENCES public."Power Source",
     "Year_ID_year"       INT REFERENCES public."Year",
     "Power_Generation"   NUMERIC(12,2),
+    "CO2_Emission"       numeric(12,2),
     PRIMARY KEY ("Country_ID_Country","Power Source_ID_Power","Year_ID_year")
 );
 
@@ -75,6 +100,5 @@ CREATE TABLE IF NOT EXISTS public."Country_Year" (
     "Population"         BIGINT,
     PRIMARY KEY ("Country_ID_Country","Year_ID_year")
 );
-
 
 COMMIT;

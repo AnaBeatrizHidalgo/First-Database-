@@ -1,193 +1,167 @@
-,year,sector,CO2_Emission
-0,2000,Agriculture,105.0
-1,2001,Agriculture,107.0
-2,2002,Agriculture,112.0
-3,2003,Agriculture,113.0
-4,2004,Agriculture,117.0
-5,2005,Agriculture,107.0
-6,2006,Agriculture,111.0
-7,2007,Agriculture,114.0
-8,2008,Agriculture,111.0
-9,2009,Agriculture,122.0
-10,2010,Agriculture,122.0
-11,2011,Agriculture,131.0
-12,2012,Agriculture,134.0
-13,2013,Agriculture,137.0
-14,2014,Agriculture,134.0
-15,2015,Agriculture,137.0
-16,2016,Agriculture,137.0
-17,2017,Agriculture,135.0
-18,2018,Agriculture,135.0
-19,2019,Agriculture,140.0
-20,2020,Agriculture,146.0
-21,2021,Agriculture,143.0
-22,2022,Agriculture,143.0
-23,2023,Agriculture,144.0
-24,2000,Buildings,3037.0
-25,2001,Buildings,3074.0
-26,2002,Buildings,3074.0
-27,2003,Buildings,3177.0
-28,2004,Buildings,3253.0
-29,2005,Buildings,3273.0
-30,2006,Buildings,3252.0
-31,2007,Buildings,3252.0
-32,2008,Buildings,3325.0
-33,2009,Buildings,3263.0
-34,2010,Buildings,3334.0
-35,2011,Buildings,3266.0
-36,2012,Buildings,3231.0
-37,2013,Buildings,3350.0
-38,2014,Buildings,3292.0
-39,2015,Buildings,3318.0
-40,2016,Buildings,3350.0
-41,2017,Buildings,3421.0
-42,2018,Buildings,3434.0
-43,2019,Buildings,3380.0
-44,2020,Buildings,3323.0
-45,2021,Buildings,3375.0
-46,2022,Buildings,3386.0
-47,2023,Buildings,3414.0
-48,2000,Fuel Exploitation,1942.0
-49,2001,Fuel Exploitation,1928.0
-50,2002,Fuel Exploitation,1962.0
-51,2003,Fuel Exploitation,2122.0
-52,2004,Fuel Exploitation,2133.0
-53,2005,Fuel Exploitation,2200.0
-54,2006,Fuel Exploitation,2257.0
-55,2007,Fuel Exploitation,2296.0
-56,2008,Fuel Exploitation,2293.0
-57,2009,Fuel Exploitation,2277.0
-58,2010,Fuel Exploitation,2397.0
-59,2011,Fuel Exploitation,2413.0
-60,2012,Fuel Exploitation,2463.0
-61,2013,Fuel Exploitation,2504.0
-62,2014,Fuel Exploitation,2467.0
-63,2015,Fuel Exploitation,2538.0
-64,2016,Fuel Exploitation,2453.0
-65,2017,Fuel Exploitation,2514.0
-66,2018,Fuel Exploitation,2577.0
-67,2019,Fuel Exploitation,2710.0
-68,2020,Fuel Exploitation,2551.0
-69,2021,Fuel Exploitation,2621.0
-70,2022,Fuel Exploitation,2619.0
-71,2023,Fuel Exploitation,2666.0
-72,2000,Industrial Combustion,3875.0
-73,2001,Industrial Combustion,3898.0
-74,2002,Industrial Combustion,3892.0
-75,2003,Industrial Combustion,4077.0
-76,2004,Industrial Combustion,4509.0
-77,2005,Industrial Combustion,4926.0
-78,2006,Industrial Combustion,5168.0
-79,2007,Industrial Combustion,5441.0
-80,2008,Industrial Combustion,5557.0
-81,2009,Industrial Combustion,5545.0
-82,2010,Industrial Combustion,6089.0
-83,2011,Industrial Combustion,6317.0
-84,2012,Industrial Combustion,6336.0
-85,2013,Industrial Combustion,6364.0
-86,2014,Industrial Combustion,6428.0
-87,2015,Industrial Combustion,6292.0
-88,2016,Industrial Combustion,6150.0
-89,2017,Industrial Combustion,6078.0
-90,2018,Industrial Combustion,6213.0
-91,2019,Industrial Combustion,6250.0
-92,2020,Industrial Combustion,6194.0
-93,2021,Industrial Combustion,6341.0
-94,2022,Industrial Combustion,6224.0
-95,2023,Industrial Combustion,6407.0
-96,2000,Power Industry,9376.0
-97,2001,Power Industry,9580.0
-98,2002,Power Industry,9719.0
-99,2003,Power Industry,10275.0
-100,2004,Power Industry,10652.0
-101,2005,Power Industry,10999.0
-102,2006,Power Industry,11429.0
-103,2007,Power Industry,11922.0
-104,2008,Power Industry,11922.0
-105,2009,Power Industry,11736.0
-106,2010,Power Industry,12522.0
-107,2011,Power Industry,13126.0
-108,2012,Power Industry,13404.0
-109,2013,Power Industry,13643.0
-110,2014,Power Industry,13701.0
-111,2015,Power Industry,13402.0
-112,2016,Power Industry,13457.0
-113,2017,Power Industry,13771.0
-114,2018,Power Industry,14217.0
-115,2019,Power Industry,14088.0
-116,2020,Power Industry,13593.0
-117,2021,Power Industry,14655.0
-118,2022,Power Industry,14693.0
-119,2023,Power Industry,14924.0
-120,2000,Processes,1595.0
-121,2001,Processes,1620.0
-122,2002,Processes,1699.0
-123,2003,Processes,1790.0
-124,2004,Processes,1901.0
-125,2005,Processes,2015.0
-126,2006,Processes,2172.0
-127,2007,Processes,2322.0
-128,2008,Processes,2333.0
-129,2009,Processes,2327.0
-130,2010,Processes,2504.0
-131,2011,Processes,2655.0
-132,2012,Processes,2741.0
-133,2013,Processes,2824.0
-134,2014,Processes,2886.0
-135,2015,Processes,2858.0
-136,2016,Processes,2973.0
-137,2017,Processes,3032.0
-138,2018,Processes,3106.0
-139,2019,Processes,3198.0
-140,2020,Processes,3236.0
-141,2021,Processes,3332.0
-142,2022,Processes,3220.0
-143,2023,Processes,3213.0
-144,2000,Transport,5781.0
-145,2001,Transport,5810.0
-146,2002,Transport,5962.0
-147,2003,Transport,6087.0
-148,2004,Transport,6369.0
-149,2005,Transport,6510.0
-150,2006,Transport,6662.0
-151,2007,Transport,6870.0
-152,2008,Transport,6874.0
-153,2009,Transport,6735.0
-154,2010,Transport,7020.0
-155,2011,Transport,7136.0
-156,2012,Transport,7196.0
-157,2013,Transport,7381.0
-158,2014,Transport,7504.0
-159,2015,Transport,7738.0
-160,2016,Transport,7887.0
-161,2017,Transport,8079.0
-162,2018,Transport,8274.0
-163,2019,Transport,8282.0
-164,2020,Transport,7093.0
-165,2021,Transport,7635.0
-166,2022,Transport,7944.0
-167,2023,Transport,8239.0
-168,2000,Waste,15.0
-169,2001,Waste,15.0
-170,2002,Waste,14.0
-171,2003,Waste,16.0
-172,2004,Waste,15.0
-173,2005,Waste,14.0
-174,2006,Waste,15.0
-175,2007,Waste,15.0
-176,2008,Waste,16.0
-177,2009,Waste,15.0
-178,2010,Waste,16.0
-179,2011,Waste,16.0
-180,2012,Waste,16.0
-181,2013,Waste,18.0
-182,2014,Waste,16.0
-183,2015,Waste,17.0
-184,2016,Waste,17.0
-185,2017,Waste,17.0
-186,2018,Waste,18.0
-187,2019,Waste,18.0
-188,2020,Waste,18.0
-189,2021,Waste,18.0
-190,2022,Waste,18.0
-191,2023,Waste,18.0
+,Country,Total CO₂ 2023 (Mt),Top Sector 2023,Sector CO₂ 2023 (Mt),Share
+0,China,13259.64,Power Industry,6472.95,48.8%
+1,United States,4682.05,Transport,1710.65,36.5%
+2,India,2955.18,Power Industry,1376.99,46.6%
+3,Japan,944.75,Power Industry,397.9,42.1%
+4,Indonesia,674.53,Power Industry,269.9,40.0%
+5,Saudi Arabia,622.91,Power Industry,262.37,42.1%
+6,Germany,582.94,Power Industry,177.56,30.5%
+7,Canada,575.01,Transport,166.35,28.9%
+8,Mexico,487.09,Power Industry,164.85,33.8%
+9,Brazil,479.5,Transport,216.84,45.2%
+10,Türkiye,438.32,Power Industry,131.08,29.9%
+11,South Africa,397.37,Power Industry,193.73,48.8%
+12,Australia,373.63,Power Industry,155.4,41.6%
+13,Viet Nam,372.95,Power Industry,155.31,41.6%
+14,United Kingdom,302.1,Transport,108.48,35.9%
+15,Poland,286.9,Power Industry,117.78,41.1%
+16,Malaysia,283.32,Power Industry,116.86,41.2%
+17,Thailand,274.16,Power Industry,80.12,29.2%
+18,Kazakhstan,239.87,Power Industry,110.47,46.1%
+19,United Arab Emirates,206.0,Industrial Combustion,72.24,35.1%
+20,Pakistan,200.52,Industrial Combustion,53.83,26.8%
+21,Iraq,192.91,Power Industry,62.91,32.6%
+22,Argentina,183.78,Transport,47.45,25.8%
+23,Algeria,180.35,Transport,46.56,25.8%
+24,Philippines,161.27,Power Industry,82.74,51.3%
+25,Uzbekistan,137.91,Power Industry,47.67,34.6%
+26,Ukraine,136.19,Power Industry,49.97,36.7%
+27,Nigeria,127.94,Transport,57.86,45.2%
+28,Qatar,127.89,Fuel Exploitation,50.69,39.6%
+29,Bangladesh,124.81,Power Industry,57.03,45.7%
+30,Netherlands,122.87,Power Industry,32.45,26.4%
+31,Kuwait,111.62,Power Industry,50.87,45.6%
+32,Colombia,100.87,Transport,36.7,36.4%
+33,Oman,93.1,Buildings,20.42,21.9%
+34,Czechia,90.53,Power Industry,39.87,44.0%
+35,Belgium,84.3,Transport,21.95,26.0%
+36,Chile,84.01,Transport,31.95,38.0%
+37,Romania,70.77,Transport,20.78,29.4%
+38,Morocco,69.86,Power Industry,28.86,41.3%
+39,Turkmenistan,65.98,Buildings,25.97,39.4%
+40,Libya,61.25,Power Industry,21.08,34.4%
+41,Austria,58.82,Transport,21.14,35.9%
+42,Peru,58.41,Transport,24.03,41.1%
+43,Singapore,57.06,Power Industry,20.0,35.1%
+44,Belarus,54.16,Power Industry,25.18,46.5%
+45,Greece,51.66,Transport,17.57,34.0%
+46,Ecuador,45.33,Transport,21.89,48.3%
+47,Norway,44.06,Transport,13.49,30.6%
+48,Hungary,43.83,Transport,14.25,32.5%
+49,Azerbaijan,42.76,Power Industry,15.35,35.9%
+50,Bulgaria,39.8,Power Industry,16.97,42.6%
+51,Bahrain,37.43,Power Industry,23.79,63.6%
+52,Portugal,36.17,Transport,15.78,43.6%
+53,New Zealand,35.81,Transport,16.0,44.7%
+54,Sweden,35.4,Transport,13.31,37.6%
+55,Ireland,32.49,Transport,11.11,34.2%
+56,Finland,32.27,Power Industry,8.97,27.8%
+57,Tunisia,31.5,Power Industry,9.38,29.8%
+58,Dominican Republic,31.35,Power Industry,13.19,42.1%
+59,Angola,28.23,Transport,8.5,30.1%
+60,Mongolia,28.11,Power Industry,16.42,58.4%
+61,Trinidad and Tobago,27.21,Processes,12.95,47.6%
+62,Denmark,26.79,Transport,11.24,42.0%
+63,Ghana,24.16,Transport,9.04,37.4%
+64,Bolivia,23.81,Transport,11.91,50.0%
+65,Jordan,23.57,Power Industry,8.13,34.5%
+66,Cuba,22.06,Power Industry,11.19,50.7%
+67,Bosnia and Herzegovina,21.99,Power Industry,12.09,55.0%
+68,Kenya,21.73,Transport,10.61,48.8%
+69,Guatemala,21.35,Transport,11.52,54.0%
+70,Sri Lanka,20.53,Transport,9.44,46.0%
+71,Tanzania,19.37,Transport,8.91,46.0%
+72,Cambodia,17.96,Transport,7.36,41.0%
+73,Nepal,17.93,Industrial Combustion,6.97,38.9%
+74,Croatia,17.44,Transport,6.89,39.5%
+75,Lebanon,17.32,Power Industry,7.55,43.6%
+76,Ethiopia,16.7,Transport,6.64,39.8%
+77,Panama,14.72,Power Industry,6.37,43.3%
+78,Puerto Rico,13.83,Power Industry,10.69,77.3%
+79,Lithuania,13.1,Transport,6.2,47.3%
+80,Georgia,12.86,Transport,4.44,34.5%
+81,Slovenia,12.07,Transport,4.78,39.6%
+82,Senegal,12.03,Power Industry,3.6,29.9%
+83,Zimbabwe,11.75,Power Industry,4.75,40.4%
+84,Estonia,11.44,Power Industry,4.21,36.8%
+85,Honduras,10.95,Transport,4.96,45.3%
+86,Cameroon,10.75,Transport,4.27,39.7%
+87,Moldova,9.92,Power Industry,3.99,40.2%
+88,Mozambique,9.75,Transport,3.93,40.3%
+89,Tajikistan,9.31,Buildings,2.32,24.9%
+90,Uruguay,8.82,Transport,4.02,45.6%
+91,North Macedonia,8.77,Power Industry,3.97,45.3%
+92,Afghanistan,8.71,Industrial Combustion,3.31,38.0%
+93,Costa Rica,8.57,Transport,6.07,70.8%
+94,El Salvador,8.38,Transport,4.41,52.6%
+95,Paraguay,8.26,Transport,7.17,86.8%
+96,Zambia,8.06,Transport,2.36,29.3%
+97,Armenia,7.72,Transport,2.47,32.0%
+98,Botswana,7.43,Power Industry,3.85,51.8%
+99,Uganda,7.22,Transport,3.55,49.2%
+100,Cyprus,7.19,Power Industry,3.09,43.0%
+101,Luxembourg,7.0,Transport,4.2,60.0%
+102,Jamaica,6.86,Power Industry,2.44,35.6%
+103,Mali,6.66,Transport,3.32,49.8%
+104,Latvia,6.54,Transport,3.06,46.8%
+105,Malawi,6.45,Industrial Combustion,3.46,53.6%
+106,Benin,6.45,Transport,4.28,66.4%
+107,New Caledonia,6.2,Industrial Combustion,2.32,37.4%
+108,Burkina Faso,6.01,Transport,2.73,45.4%
+109,Papua New Guinea,5.94,Transport,2.59,43.6%
+110,Nicaragua,5.73,Transport,2.72,47.5%
+111,Gabon,4.93,Fuel Exploitation,2.61,52.9%
+112,Mauritania,4.65,Transport,2.43,52.3%
+113,Albania,4.58,Transport,1.68,36.7%
+114,Namibia,4.37,Transport,2.15,49.2%
+115,Mauritius,4.21,Power Industry,2.47,58.7%
+116,Madagascar,4.1,Power Industry,1.69,41.2%
+117,Equatorial Guinea,3.78,Fuel Exploitation,1.01,26.7%
+118,Guinea,3.71,Transport,1.75,47.2%
+119,Haiti,3.53,Transport,1.45,41.1%
+120,Guyana,3.31,Transport,1.04,31.4%
+121,Iceland,3.09,Processes,1.6,51.8%
+122,Maldives,2.87,Transport,1.47,51.2%
+123,Niger,2.83,Transport,1.27,44.9%
+124,Suriname,2.63,Power Industry,1.05,39.9%
+125,Chad,2.57,Transport,1.07,41.6%
+126,Togo,2.5,Transport,1.31,52.4%
+127,Curaçao,2.44,Transport,1.23,50.4%
+128,Fiji,2.21,Transport,1.11,50.2%
+129,Bhutan,1.99,Processes,0.75,37.7%
+130,Malta,1.68,Power Industry,0.74,44.0%
+131,Rwanda,1.66,Transport,0.6,36.1%
+132,Liberia,1.63,Transport,0.81,49.7%
+133,Palau,1.44,Transport,0.76,52.8%
+134,Eswatini,1.39,Transport,0.85,61.2%
+135,French Polynesia,1.26,Transport,0.65,51.6%
+136,Seychelles,1.24,Transport,0.71,57.3%
+137,Sierra Leone,1.08,Transport,0.53,49.1%
+138,Cabo Verde,1.0,Transport,0.57,57.0%
+139,Lesotho,0.88,Transport,0.5,56.8%
+140,Somalia,0.87,Transport,0.48,55.2%
+141,Burundi,0.85,Transport,0.41,48.2%
+142,Barbados,0.8,Power Industry,0.35,43.8%
+143,Djibouti,0.75,Transport,0.35,46.7%
+144,Gibraltar,0.69,Transport,0.56,81.2%
+145,Timor-Leste,0.69,Transport,0.34,49.3%
+146,Eritrea,0.67,Power Industry,0.31,46.3%
+147,Greenland,0.59,Buildings,0.34,57.6%
+148,Aruba,0.53,Power Industry,0.26,49.1%
+149,Samoa,0.47,Transport,0.24,51.1%
+150,Solomon Islands,0.42,Transport,0.21,50.0%
+151,Cayman Islands,0.36,Power Industry,0.18,50.0%
+152,Central African Republic,0.36,Transport,0.2,55.6%
+153,Guinea-Bissau,0.35,Transport,0.2,57.1%
+154,Bermuda,0.34,Power Industry,0.17,50.0%
+155,Antigua and Barbuda,0.32,Power Industry,0.16,50.0%
+156,Comoros,0.32,Transport,0.18,56.3%
+157,Vanuatu,0.29,Transport,0.15,51.7%
+158,Belize,0.28,Power Industry,0.14,50.0%
+159,Tonga,0.22,Transport,0.11,50.0%
+160,São Tomé and Principe,0.21,Transport,0.12,57.1%
+161,Grenada,0.14,Power Industry,0.07,50.0%
+162,Turks and Caicos Islands,0.11,Power Industry,0.05,45.5%
+163,British Virgin Islands,0.09,Power Industry,0.04,44.4%
+164,Kiribati,0.09,Transport,0.05,55.6%
+165,Dominica,0.09,Power Industry,0.04,44.4%
