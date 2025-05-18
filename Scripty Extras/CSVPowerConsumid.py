@@ -6,8 +6,8 @@ output_path = './Datasets/PowerGenerationEmission.csv'
 
 # Indicadores que você quer manter
 indicadores_desejados = [
-    "Power sector emissions",
-    "Electricity generation"
+    "Electricity generation",
+    "Power sector emissions"
 ]
 
 indicadores_Variable = [
@@ -15,7 +15,7 @@ indicadores_Variable = [
 ]
 
 indicadores_Subcategory= ["Fuel"]
-indicadores_Unit= ["TWh"]
+indicadores_Unit= ["TWh", "mtCO2"]
 
 # Carregar o arquivo CSV original
 df = pd.read_csv(input_path)
