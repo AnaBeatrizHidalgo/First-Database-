@@ -7,10 +7,12 @@ load_dotenv()
 DB_URL = os.getenv("DB_URL")
 engine = create_engine(DB_URL)
 
+# Query com o intuito de analisar a relação entre Country e Power Generation, conseguindo observar qual energia mais emite CO2
+
 query = text('''
 SELECT
     C."Name"                AS "Country",
-    Y."year"                AS "Year",
+    CPS."Year",
     PS."Name"               AS "Energy Source",
     PS."Renewable",
     CPS."Power_Generation"  AS "Generation_TWh",
@@ -22,10 +24,8 @@ SELECT
     )                       AS "gCO2_per_kWh"
 FROM   "Country_Power Source" CPS
 JOIN   "Country"      C  ON C."ID_Country"   = CPS."Country_ID_Country"
-JOIN   "Year"         Y  ON Y."ID_year"      = CPS."Year_ID_year"
 JOIN   "Power Source" PS ON PS."ID_Power"    = CPS."Power Source_ID_Power"
-ORDER  BY Y."year" DESC, C."Name";
-
+ORDER  BY "Emissions_Mt" DESC, C."Name", CPS."Year" DESC;
 ''')
 
 with engine.begin() as conn:

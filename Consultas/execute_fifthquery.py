@@ -7,28 +7,35 @@ load_dotenv()
 DB_URL = os.getenv("DB_URL")
 engine = create_engine(DB_URL)
 
+#Saber de quanto que o pais investe reflete no seu desenvolvimento
+
 query = text('''
 SELECT  C."Name"            AS country,
-        Y.year,
-        I."Electricity"     AS electricity_index,
-        G."Investment_Energy",
+        I."Year",
+        D."IDH",
+        I."GDP",
+        D."Electricity"     AS electricity index,
+        I."Investment_Energy" AS  eletricity investiment,
+        D."Health"          AS health index,
+        I."Health_Expenditure" AS helth investiment,
         SUM(CP."Power_Generation") AS total_power_generation,
-        P."Renewable_Energy" AS renewable_share_pct,
-        P."PowerImport"                   AS import_gwh,
-        E."CO2_Emision"       AS total_emission,
-        E."ELUC"              AS emission_others
-FROM    "Country_Year"  CY
-JOIN    "Country"       C  ON C."ID_Country" = CY."Country_ID_Country"
-JOIN    "Year"          Y  ON Y."ID_year"    = CY."Year_ID_year"
-LEFT JOIN "IDH"         I  ON I."ID_IDH"     = CY."IDH_ID"
-LEFT JOIN "GDP"         G  ON G."ID_GDP"     = CY."GDP_ID"
-LEFT JOIN "Environmental Indicator" E ON E."ID_Environmental" = CY."Environmental_ID"
-LEFT JOIN "Power Consumed" P ON P."ID_Consumed" = CY."ConsumePower_ID"
-LEFT JOIN "Country_Power Source" CP ON  CP."Country_ID_Country" = CY."Country_ID_Country"
-                                        AND CP."Year_ID_year" = CY."Year_ID_year"
-WHERE   I."Electricity" IS NOT NULL AND G."Investment_Energy" IS NOT NULL
-GROUP BY C."Name", Y.year, I."Electricity", G."Investment_Energy", P."Renewable_Energy", P."PowerImport", E."CO2_Emision", E."ELUC"
-ORDER BY electricity_index DESC, G."Investment_Energy" DESC;
+        P."Renewable_Energy" AS renewable share pct,
+        P."PowerImport"      AS import_gwh,
+        E."CO2_Emision"      AS total_emission,
+        SUM(SC."CO2_Emission") AS sector emission, 
+        SUM(CP."CO2_Emission") AS emission energy
+FROM    "Country"  C
+JOIN "Investiment"     I  ON I."Country_ID"     =  C."ID_Country"
+JOIN "Development"     D  ON D."Country_ID" =  C."ID_Country" AND I."Year" = D."Year"
+JOIN "Environmental Indicator" E ON E."Country_ID" = C."ID_Country"  AND I."Year" = E."Year"
+JOIN "Power Consumed" P ON P."Country_ID" = C."ID_Country"  AND I."Year" = E."Year"
+JOIN "Country_Power Source" CP ON  CP."Country_ID_Country" = C."ID_Country"  AND I."Year" = E."Year"
+WHERE D."IDH" IS NOT NULL AND I."GDP" IS NOT NULL
+GROUP BY C."Name", I."Year", D."IDH", D."Health", D."Electricity",
+         I."GDP", I."Health_Expenditure", I."Investment_Energy", 
+         P."Renewable_Energy", P."PowerImport", E."CO2_Emision"
+ORDER BY D."IDH" DESC, I."GDP" DESC, total_emission DESC, I."Year" DESC
+LIMIT 50;
 ''')
 
 with engine.begin() as conn:

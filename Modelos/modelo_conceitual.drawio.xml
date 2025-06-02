@@ -40,19 +40,19 @@
         <mxCell id="UdRmeu3duNBp94RX3Zt4-37" value="+GWh&lt;div&gt;+Porcent Power Import&lt;/div&gt;&lt;div&gt;+Renewable energy consumption&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" parent="UdRmeu3duNBp94RX3Zt4-36" vertex="1">
           <mxGeometry y="50" width="220" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="UdRmeu3duNBp94RX3Zt4-40" value="&lt;span style=&quot;font-size: 12px; text-align: left;&quot;&gt;IndicadorAmbiental&lt;/span&gt;" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="UdRmeu3duNBp94RX3Zt4-40" value="&lt;span style=&quot;font-size: 12px; text-align: left;&quot;&gt;Indicador Ambiental&lt;/span&gt;" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="210" y="-705" width="250" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="UdRmeu3duNBp94RX3Zt4-41" value="+Emissions from land-use change (ELUC)&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+CO2 Emition&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+Ano&lt;/span&gt;&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" parent="UdRmeu3duNBp94RX3Zt4-40" vertex="1">
+        <mxCell id="UdRmeu3duNBp94RX3Zt4-41" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+CO2 Emission&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+Ano&lt;/span&gt;&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" parent="UdRmeu3duNBp94RX3Zt4-40" vertex="1">
           <mxGeometry y="50" width="250" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="UdRmeu3duNBp94RX3Zt4-46" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px;&quot;&gt;GDP&lt;/span&gt;&lt;/div&gt;" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="UdRmeu3duNBp94RX3Zt4-46" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px;&quot;&gt;Investimentos&lt;/span&gt;&lt;/div&gt;" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="200" y="-890" width="190" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="UdRmeu3duNBp94RX3Zt4-47" value="+ID&lt;br&gt;&lt;div&gt;+GDP per capita&lt;/div&gt;&lt;div&gt;+Investment in energy&lt;/div&gt;&lt;div&gt;+Health expenditure (% of GDP)&lt;/div&gt;&lt;div&gt;+Ano&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" parent="UdRmeu3duNBp94RX3Zt4-46" vertex="1">
+        <mxCell id="UdRmeu3duNBp94RX3Zt4-47" value="&lt;div&gt;+GDP&lt;/div&gt;&lt;div&gt;+Investment in energy&lt;/div&gt;&lt;div&gt;+Health expenditure (% of GDP)&lt;/div&gt;&lt;div&gt;+Ano&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" parent="UdRmeu3duNBp94RX3Zt4-46" vertex="1">
           <mxGeometry y="50" width="190" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="UdRmeu3duNBp94RX3Zt4-49" value="&lt;span style=&quot;font-size: 12px; text-align: left;&quot;&gt;IDH&lt;/span&gt;" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="UdRmeu3duNBp94RX3Zt4-49" value="&lt;span style=&quot;font-size: 12px; text-align: left;&quot;&gt;Desenvolvimento&lt;/span&gt;" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="570" y="-760" width="160" height="170" as="geometry" />
         </mxCell>
         <mxCell id="UdRmeu3duNBp94RX3Zt4-50" value="+IDH&lt;div&gt;+Eletricity&lt;/div&gt;&lt;div&gt;+Sanitation&amp;nbsp;&lt;/div&gt;&lt;div&gt;+Health&lt;/div&gt;&lt;div&gt;+Standard of living&lt;br&gt;&lt;/div&gt;&lt;div&gt;+Ano&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" parent="UdRmeu3duNBp94RX3Zt4-49" vertex="1">
@@ -120,7 +120,7 @@
             <mxPoint x="-39" y="64" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="AlLGUyKMqI5_d2q1o6k6-14" value="PIB_Ano" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" connectable="0" vertex="1">
+        <mxCell id="AlLGUyKMqI5_d2q1o6k6-14" value="Pais_Investe" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" connectable="0" vertex="1">
           <mxGeometry x="500.00073295958293" y="-950.0014945958566" as="geometry">
             <mxPoint x="-39" y="64" as="offset" />
           </mxGeometry>
@@ -140,7 +140,7 @@
             <mxPoint x="-39" y="64" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="AlLGUyKMqI5_d2q1o6k6-20" value="IDH_Pais" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" connectable="0" vertex="1">
+        <mxCell id="AlLGUyKMqI5_d2q1o6k6-20" value="Pais_Desenvolve" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" connectable="0" vertex="1">
           <mxGeometry x="790.0007329595829" y="-850.0014945958566" as="geometry">
             <mxPoint x="-39" y="64" as="offset" />
           </mxGeometry>

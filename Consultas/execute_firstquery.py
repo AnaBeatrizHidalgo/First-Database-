@@ -7,22 +7,39 @@ load_dotenv()
 DB_URL = os.getenv("DB_URL")
 engine = create_engine(DB_URL)
 
+# Query para analisar qual Setor possui a maior emissão de CO2 no ano de 2023
+
 query = text('''
-SELECT  C."Name"           AS country,
-        Y.year,
-        G."GDP",
-        I."IDH",
-        E."CO2_Emision",             
-        P."GWH",
-        CY."Population"
-FROM    "Country_Year"          CY
-JOIN    "Country"               C  ON CY."Country_ID_Country" = C."ID_Country"
-JOIN    "Year"                  Y  ON CY."Year_ID_year"       = Y."ID_year"
-JOIN    "GDP"                   G  ON CY."GDP_ID"             = G."ID_GDP"
-JOIN    "IDH"                   I  ON CY."IDH_ID"             = I."ID_IDH"
-JOIN    "Environmental Indicator" E ON CY."Environmental_ID"   = E."ID_Environmental"
-JOIN    "Power Consumed"        P  ON CY."ConsumePower_ID"    = P."ID_Consumed"
-ORDER BY C."Name", Y.year, CY."Population";
+WITH country_totals AS (
+    SELECT
+        scy."Country_ID_Country",
+        SUM(scy."CO2_Emission")          AS total_emission_2023
+    FROM public."Sector_Country_Year" scy
+    WHERE scy."Year" = 2023
+    GROUP BY scy."Country_ID_Country"
+    ORDER BY total_emission_2023 DESC
+),
+top_sectors AS (
+    SELECT DISTINCT ON (scy."Country_ID_Country")
+        scy."Country_ID_Country",
+        scy."Sector_ID_Sector",
+        scy."CO2_Emission"               AS sector_emission_2023
+    FROM public."Sector_Country_Year" scy
+    WHERE scy."Year" = 2023
+      AND scy."Country_ID_Country" IN (SELECT "Country_ID_Country" FROM country_totals)
+    ORDER BY scy."Country_ID_Country", scy."CO2_Emission" DESC   -- pega o maior setor de cada país
+)
+SELECT
+    c."Name"                    AS "Country",
+    ct.total_emission_2023      AS "Total CO₂ 2023 (Mt)",
+    s."Name"                    AS "Top Sector 2023",
+    ts.sector_emission_2023     AS "Sector CO₂ 2023 (Mt)",
+    ROUND(100.0 * ts.sector_emission_2023 / ct.total_emission_2023, 1) || '%' AS "Share"
+FROM country_totals  ct
+JOIN top_sectors     ts ON ts."Country_ID_Country" = ct."Country_ID_Country"
+JOIN public."Country" c ON c."ID_Country"          = ct."Country_ID_Country"
+JOIN public."Sector"  s ON s."ID_Sector"           = ts."Sector_ID_Sector"
+ORDER BY ct.total_emission_2023 DESC;
 ''')
 
 with engine.begin() as conn:
