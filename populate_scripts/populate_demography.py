@@ -63,12 +63,12 @@ df_final = (
 )
 
 # ─────────────────────────────────
-# UPSERT direto em Demography_Year
+# UPSERT direto em Demography
 # ─────────────────────────────────
 with engine.begin() as conn:
     for row in df_final.itertuples(index=False):
         insert_sql = text("""
-            INSERT INTO "Demography_Year"
+            INSERT INTO "Demography"
                 ("Country_ID", "Year", "Population")
             VALUES
                 (:country_id, :year, :population)
@@ -81,4 +81,4 @@ with engine.begin() as conn:
             "population": int(row.population),
         })
 
-print(f"{len(df_final)} registros inseridos/atualizados em 'Demography_Year'")
+print(f"{len(df_final)} registros inseridos/atualizados em 'Demography'")
