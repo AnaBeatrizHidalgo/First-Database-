@@ -70,9 +70,9 @@ def run_script(py_file: str | Path) -> None:
 # ───────────────────────────────────────────────────────────────
 # 1. Criação das tabelas
 # ───────────────────────────────────────────────────────────────
-MODEL_SQL = ROOT / "../Modelos/model_db.sql"
+MODEL_SQL = ROOT / "../Modelos/modeloFisico.sql"
 if not MODEL_SQL.exists():
-    sys.exit("model_db.sql não encontrado!")
+    sys.exit("modeloFisico.sql não encontrado!")
 run_sql_file(MODEL_SQL)
 
 # ───────────────────────────────────────────────────────────────
