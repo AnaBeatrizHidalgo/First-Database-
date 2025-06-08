@@ -29,73 +29,75 @@ def py_val(v):
         return v.item()
     return v
 
+# ─────────────────────────────
+# Mapeamento de países
+# ─────────────────────────────
 with engine.begin() as conn:
     country_map = (
         pd.read_sql('SELECT "ID_Country", "Name" FROM public."Country"', conn)
           .assign(country_key=lambda d: d["Name"].apply(clean_country))
     )
-    year_map = pd.read_sql('SELECT "ID_year", "year" FROM public."Year"', conn)
 
-
+# ─────────────────────────────
+# Carregamento e limpeza
+# ─────────────────────────────
 env = (
     pd.read_csv(PATH_ENV)
-      .rename(columns={"Country": "country",
-                       "Year": "year",
-                       "CO2 Emission": "co2",     
-                       "ELUC": "eluc"})
+      .rename(columns={
+          "Country": "country",
+          "Year": "year",
+          "CO2 Emission": "co2",
+          "ELUC": "eluc"
+      })
 )
 env = env[env["year"].between(YEAR_MIN, YEAR_MAX)].copy()
 env["country_key"] = env["country"].apply(clean_country)
 env["co2"]  = env["co2"].apply(parse_number)
 env["eluc"] = env["eluc"].apply(parse_number)
 
-df = (env
-      .merge(country_map[["ID_Country", "country_key"]], on="country_key", how="inner")
-      .merge(year_map, on="year", how="inner")
+df = (
+    env.merge(country_map[["ID_Country", "country_key"]], on="country_key", how="inner")
 )
 
-df_final = (df[["ID_Country", "ID_year", "co2", "eluc"]]
-            .drop_duplicates(subset=["ID_Country", "ID_year"])
-            .reset_index(drop=True)
+df_final = (
+    df[["ID_Country", "year", "co2", "eluc"]]
+      .drop_duplicates(subset=["ID_Country", "year"])
+      .reset_index(drop=True)
 )
 
-update_sql = text("""
-    UPDATE "Country_Year"
-       SET "Environmental_ID" = :env_id          -- campo da Country_Year
-     WHERE "Country_ID_Country" = :country_id
-       AND "Year_ID_year"      = :year_id
-       AND ("Environmental_ID" IS NULL OR "Environmental_ID" <> :env_id)
-""")
-
+# ─────────────────────────────
+# UPSERT na Environmental Indicator
+# ─────────────────────────────
 with engine.begin() as conn:
     for row in df_final.itertuples(index=False):
-        db_cols, params = [], {}
+        col_map = {}
 
         if row.co2 is not None:
-            db_cols.append('"CO2_Emision"')         
-            params["co2"] = py_val(row.co2)
+            col_map['"CO2_Emision"'] = py_val(row.co2)
         if row.eluc is not None:
-            db_cols.append('"ELUC"')
-            params["eluc"] = py_val(row.eluc)
+            col_map['"ELUC"'] = py_val(row.eluc)
 
-        if not db_cols:
+        if not col_map:
             continue
 
-        col_list     = ", ".join(db_cols)
-        placeholders = ", ".join(f":{p}" for p in params)
+        col_names    = ", ".join(col_map.keys())
+        placeholders = ", ".join(f":{k.strip('\"').lower()}" for k in col_map)
+        params       = {k.strip('\"').lower(): v for k, v in col_map.items()}
 
-        insert_sql = text(f"""
-            INSERT INTO "Environmental Indicator" ({col_list})
-            VALUES ({placeholders})
-            RETURNING "ID_Environmental"
-        """)
-        new_env_id = conn.execute(insert_sql, params).scalar_one()
-
-        conn.execute(update_sql, {
-            "env_id"    : new_env_id,
+        # Campos obrigatórios
+        params.update({
             "country_id": int(row.ID_Country),
-            "year_id"   : int(row.ID_year),
+            "yr":         int(row.year)
         })
 
-print(f"{len(df_final)} registros inseridos em 'Environmental Indicator' "
-      f"e vinculados na Country_Year ✔️")
+        insert_sql = text(f"""
+            INSERT INTO "Environmental Indicator"
+                ("Country_ID", "Year", {col_names})
+            VALUES
+                (:country_id, :yr, {placeholders})
+            ON CONFLICT ("Country_ID", "Year") DO UPDATE
+            SET {', '.join(f'{c} = COALESCE(EXCLUDED.{c}, "Environmental Indicator".{c})' for c in col_map)}
+        """)
+        conn.execute(insert_sql, params)
+
+print(f"{len(df_final)} registros inseridos/atualizados em 'Environmental Indicator'")

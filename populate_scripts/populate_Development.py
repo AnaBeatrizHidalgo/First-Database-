@@ -14,6 +14,7 @@ PATH_GMPI_T1  = Path("Datasets/2024_gMPI_Table1and2 - gMPI_Table1.csv")
 PATH_GMPI_T2  = Path("Datasets/2024_gMPI_Table1and2 - Table2.csv")
 YEAR_MIN, YEAR_MAX = 2000, 2025
 
+
 def clean_country(val) -> str:
     if pd.isna(val):
         return ''
@@ -35,19 +36,18 @@ def scale10_to_int(x):
     return int(round(x * 10))
 
 def py_val(v):
-    """converte numpy -> python básico / None"""
     if v is pd.NA or pd.isna(v):
         return None
     if isinstance(v, (np.generic,)):
         return v.item()
     return v
 
+
 with engine.begin() as conn:
     country_map = (
         pd.read_sql('SELECT "ID_Country", "Name" FROM public."Country"', conn)
           .assign(country_key=lambda d: d["Name"].apply(clean_country))
     )
-    year_map = pd.read_sql('SELECT "ID_year", "year" FROM public."Year"', conn)
 
 idh = (
     pd.read_csv(PATH_IDH)
@@ -91,71 +91,55 @@ t2["electricity"] = t2["electricity"].apply(parse_number).apply(scale10_to_int).
 t2["sanitation"]  = t2["sanitation"].apply(parse_number).apply(scale10_to_int).astype("Int64")
 t2 = t2.dropna(subset=["year"])
 
-
-indicators = (
-    pd.merge(t1, t2[["country_key", "year", "electricity", "sanitation"]],
-             on=["country_key", "year"], how="outer")
+indicators = pd.merge(
+    t1,
+    t2[["country_key", "year", "electricity", "sanitation"]],
+    on=["country_key", "year"], how="outer"
 )
 
-df = pd.merge(idh, indicators,
-              on=["country_key", "year"], how="left")
+df = pd.merge(idh, indicators, on=["country_key", "year"], how="left")
+df = pd.merge(df, country_map[["ID_Country", "country_key"]], on="country_key", how="inner")
 
-df = (df
-      .merge(country_map[["ID_Country", "country_key"]], on="country_key", how="inner")
-      .merge(year_map, on="year", how="inner")
+df_final = (
+    df[["ID_Country", "year", "idh", "electricity", "sanitation", "health", "standard_living"]]
+      .dropna(subset=["idh"])
+      .drop_duplicates(subset=["ID_Country", "year"])
+      .reset_index(drop=True)
 )
-
-df_final = (df[["ID_Country", "ID_year",
-                "idh", "electricity", "sanitation",
-                "health", "standard_living"]]
-            .drop_duplicates(subset=["ID_Country", "ID_year"])
-)
-
-df_final = df_final.dropna(subset=["idh"]).reset_index(drop=True)
-
-
-update_sql = text("""
-    UPDATE "Country_Year"
-       SET "IDH_ID" = :idh_id
-     WHERE "Country_ID_Country" = :country_id
-       AND "Year_ID_year"    = :year_id
-       AND ("IDH_ID" IS NULL OR "IDH_ID" <> :idh_id)
-""")
 
 with engine.begin() as conn:
     for row in df_final.itertuples(index=False):
-        db_cols = []
-        params  = {}
-
-        db_cols.append('"IDH"')
-        params["idh"] = py_val(row.idh)
-
-        optional = {
-            "electricity"    : '"Electricity"',
-            "sanitation"     : '"Sanitation"',
-            "health"         : '"Health"',
-            "standard_living": '"Standard_Living"',
+        col_map = {
+            '"IDH"'           : row.idh,
+            '"Electricity"'   : row.electricity,
+            '"Sanitation"'    : row.sanitation,
+            '"Health"'        : row.health,
+            '"Standard_Living"': row.standard_living,
         }
-        for attr, db_col in optional.items():
-            val = py_val(getattr(row, attr))
-            if val is not None:
-                db_cols.append(db_col)
-                params[attr] = val
 
-        col_list     = ", ".join(db_cols)
-        placeholders = ", ".join(f":{p}" for p in params)
+        # Remove colunas com valor nulo
+        col_map = {k: py_val(v) for k, v in col_map.items() if v is not None}
+        if not col_map:
+            continue
 
-        insert_sql = text(f"""
-            INSERT INTO "IDH" ({col_list})
-            VALUES ({placeholders})
-            RETURNING "ID_IDH"
-        """)
-        new_idh_id = conn.execute(insert_sql, params).scalar_one()
+        col_list     = ", ".join(col_map.keys())
+        placeholders = ", ".join(f":{k.strip('\"').lower()}" for k in col_map)
+        params       = {k.strip('\"').lower(): v for k, v in col_map.items()}
 
-        conn.execute(update_sql, {
-            "idh_id"    : new_idh_id,
+        # obrigatórios
+        params.update({
             "country_id": int(row.ID_Country),
-            "year_id"   : int(row.ID_year),
+            "ano":        int(row.year),
         })
 
-print(f"{len(df_final)} linhas gravadas e vinculadas a Country_Year ✔️")
+        insert_sql = text(f"""
+            INSERT INTO "Development" 
+                ("Country_ID", "Ano", {col_list})
+            VALUES 
+                (:country_id, :ano, {placeholders})
+            ON CONFLICT ("Country_ID", "Ano") DO UPDATE
+            SET {', '.join(f'{c} = COALESCE(EXCLUDED.{c}, "Development".{c})' for c in col_map.keys())}
+        """)
+        conn.execute(insert_sql, params)
+
+print(f"{len(df_final)} registros inseridos/atualizados em 'Development'")

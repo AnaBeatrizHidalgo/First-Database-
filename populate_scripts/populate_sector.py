@@ -18,4 +18,4 @@ df_setor['Name'] = df_setor['Name'].str.slice(0, 100)
 with engine.begin() as conn:
     df_setor.to_sql('Sector', conn, if_exists='append', index=False)
 
-print("Tabela 'Setor' populada com sucesso! 🚀")
+print("Tabela 'Setor' populada com sucesso!")

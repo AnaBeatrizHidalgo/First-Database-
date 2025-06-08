@@ -19,4 +19,4 @@ df_country['Name'] = df_country['Name'].str.slice(0, 100)
 with engine.begin() as conn:
     df_country.to_sql('Country', conn, if_exists='append', index=False)
 
-print("Tabela 'Country' populada com sucesso! 🚀")
+print("Tabela 'Country' populada com sucesso!")
