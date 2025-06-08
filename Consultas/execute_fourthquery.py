@@ -24,60 +24,67 @@ CO2_energy AS (
            PS."Renewable",
            PSC."Year",
            SUM(PSC."CO2_Emission") AS co2_energy
-    FROM "Power_Source_Country" PSC
-    JOIN "Power_Source" PS ON PS."ID_PowerSource" = PSC."Power_Source_ID_PowerSource"
+    FROM "Power Source_Country" PSC
+    JOIN "Power Source" PS ON PS."ID_Power" = PSC."Power Source_ID_Power"
     GROUP BY PS."Name", PS."Renewable", PSC."Year"
 ),
 
 CO2_country AS (
     SELECT  C."Name"            AS country,
             EI."Year",
-            EI."CO2_Emission"   AS co2_country,
-    FROM    "Environmental Indicator" EI
-    JOIN    "Country"       C  ON C."ID_Country" = EI."Country_ID"
+            EI."CO2_Emision"   AS co2_country
+    FROM    "Country" C
+    JOIN    "Environmental Indicator" EI  ON C."ID_Country" = EI."Country_ID"
 ),
 
 IDH_total AS (
     SELECT SUM(D."IDH") AS total_idh,
-           D."Year"
+           D."Ano"      AS "Year"
     FROM "Development" D
-    WHERE total_idh is not null
-    GROUP BY D."Year"
+    GROUP BY D."Ano"
 ),
 
 GDP_total AS (
     SELECT SUM(I."GDP") AS total_gdp,
            I."Year"
     FROM "Investment" I
-    WHERE total_gdp is not null
     GROUP BY I."Year"
-)
+),
              
 
 year AS (
     SELECT DISTINCT "Year" FROM "Sector_Country"
     UNION
-    SELECT DISTINCT "Year" FROM "Power_Source_Country"
+    SELECT DISTINCT "Year" FROM "Power Source_Country"
     UNION
-    SELECT DISTINCT "Year" FROM "Development"
+    SELECT DISTINCT "Ano" AS "Year" FROM "Development"
     UNION
     SELECT DISTINCT "Year" FROM "Investment"
+),
+
+resultados AS (
+    SELECT 
+        y."Year" AS "Year",
+        (SELECT SUM(co2_sector) FROM co2_sector AS cs WHERE cs."Year" = y."Year") AS co2_total_sector,
+        (SELECT sector FROM co2_sector  AS cs WHERE cs."Year" = y."Year" ORDER BY co2_sector DESC LIMIT 1) AS sector_maior_emissao,
+        (SELECT SUM(co2_energy) FROM co2_energy AS ce WHERE ce."Year" = y."Year") AS co2_total_energia,
+        (SELECT energy_name FROM co2_energy AS ce WHERE ce."Year" = y."Year" ORDER BY co2_energy DESC LIMIT 1) AS energia_maior_emissao,
+        (SELECT SUM(co2_country) FROM co2_country  AS cc WHERE cc."Year" = y."Year") AS co2_total_country,
+        (SELECT country FROM co2_country  AS cc WHERE cc."Year" = y."Year" ORDER BY co2_country DESC LIMIT 1) AS country_maior_emissao,
+        (SELECT total_idh FROM IDH_total AS i WHERE i."Year" = y."Year") AS total_IDH,
+        (SELECT total_gdp FROM GDP_total AS g  WHERE g."Year" = y."Year") AS total_GDP
+    FROM year AS y
 )
 
-SELECT 
-    y."Year",
-    (SELECT SUM(co2_sector) FROM co2_sector AS cs WHERE cs."Year" = y."Year") AS co2_total_sector,
-    (SELECT sector_name FROM co2_sector  AS cs WHERE cs."Year" = y."Year" ORDER BY co2_sector DESC LIMIT 1) AS sector_maior_emissao,
-    (SELECT SUM(co2_energy) FROM co2_energy AS ce WHERE ce."Year" = y."Year") AS co2_total_energia,
-    (SELECT energy_name FROM co2_energy AS ce WHERE ce."Year" = y."Year" ORDER BY co2_energy DESC LIMIT 1) AS energia_maior_emissao,
-    (SELECT SUM(co2_country) FROM co2_country  AS cc WHERE cc."Year" = y."Year") AS co2_total_country,
-    (SELECT country FROM co2_ecountry  AS cc WHERE cc."Year" = y."Year" ORDER BY co2_country DESC LIMIT 1) AS country_maior_emissao,
-    (SELECT total_idh FROM IDH_total AS i WHERE i."Year" = y."Year") AS total_IDH,
-    (SELECT total_gdp FROM GDP_total AS g  WHERE g."Year" = y."Year") AS total_GDP
-FROM year AS y
-ORDER BY co2_total_country DESC, co2_total_energia DESC, co2_total_sector DESC
-LIMIT 10;
-    
+SELECT *
+FROM resultados
+WHERE co2_total_sector IS NOT NULL 
+  AND co2_total_energia IS NOT NULL 
+  AND co2_total_country IS NOT NULL 
+  AND total_IDH IS NOT NULL 
+  AND total_GDP IS NOT NULL
+ORDER BY "Year" DESC, co2_total_country DESC, co2_total_energia DESC, co2_total_sector DESC
+LIMIT 30;
 ''')
 
 with engine.begin() as conn:

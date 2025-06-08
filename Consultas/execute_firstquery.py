@@ -14,7 +14,7 @@ WITH country_totals AS (
     SELECT
         scy."Country_ID_Country",
         SUM(scy."CO2_Emission")          AS total_emission_2023
-    FROM public."Sector_Country_Year" scy
+    FROM public."Sector_Country" scy
     WHERE scy."Year" = 2023
     GROUP BY scy."Country_ID_Country"
     ORDER BY total_emission_2023 DESC
@@ -24,7 +24,7 @@ top_sectors AS (
         scy."Country_ID_Country",
         scy."Sector_ID_Sector",
         scy."CO2_Emission"               AS sector_emission_2023
-    FROM public."Sector_Country_Year" scy
+    FROM public."Sector_Country" scy
     WHERE scy."Year" = 2023
       AND scy."Country_ID_Country" IN (SELECT "Country_ID_Country" FROM country_totals)
     ORDER BY scy."Country_ID_Country", scy."CO2_Emission" DESC   -- pega o maior setor de cada país

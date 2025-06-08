@@ -63,8 +63,7 @@ CREATE TABLE IF NOT EXISTS public."Power Source"
 CREATE TABLE IF NOT EXISTS public."Sector"
 (
     "ID_Sector" serial PRIMARY KEY,
-    "Name" character varying(100),
-    "Descrição" character varying(200)
+    "Name" character varying(100)
 );
 
 CREATE TABLE IF NOT EXISTS public."Sector_Country"

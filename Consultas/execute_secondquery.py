@@ -22,10 +22,10 @@ SELECT
         (CPS."CO2_Emission" * 1000.0) / NULLIF(CPS."Power_Generation", 0),
         1
     )                       AS "gCO2_per_kWh"
-FROM   "Country_Power Source" CPS
+FROM   "Power Source_Country" CPS
 JOIN   "Country"      C  ON C."ID_Country"   = CPS."Country_ID_Country"
 JOIN   "Power Source" PS ON PS."ID_Power"    = CPS."Power Source_ID_Power"
-ORDER  BY "Emissions_Mt" DESC, C."Name", CPS."Year" DESC;
+ORDER  BY CPS."Year" DESC, "Emissions_Mt" DESC, "Generation_TWh" DESC ;
 ''')
 
 with engine.begin() as conn:

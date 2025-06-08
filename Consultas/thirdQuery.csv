@@ -1,167 +1,101 @@
-,Country,Total CO₂ 2023 (Mt),Top Sector 2023,Sector CO₂ 2023 (Mt),Share
-0,China,13259.64,Power Industry,6472.95,48.8%
-1,United States,4682.05,Transport,1710.65,36.5%
-2,India,2955.18,Power Industry,1376.99,46.6%
-3,Japan,944.75,Power Industry,397.9,42.1%
-4,Indonesia,674.53,Power Industry,269.9,40.0%
-5,Saudi Arabia,622.91,Power Industry,262.37,42.1%
-6,Germany,582.94,Power Industry,177.56,30.5%
-7,Canada,575.01,Transport,166.35,28.9%
-8,Mexico,487.09,Power Industry,164.85,33.8%
-9,Brazil,479.5,Transport,216.84,45.2%
-10,Türkiye,438.32,Power Industry,131.08,29.9%
-11,South Africa,397.37,Power Industry,193.73,48.8%
-12,Australia,373.63,Power Industry,155.4,41.6%
-13,Viet Nam,372.95,Power Industry,155.31,41.6%
-14,United Kingdom,302.1,Transport,108.48,35.9%
-15,Poland,286.9,Power Industry,117.78,41.1%
-16,Malaysia,283.32,Power Industry,116.86,41.2%
-17,Thailand,274.16,Power Industry,80.12,29.2%
-18,Kazakhstan,239.87,Power Industry,110.47,46.1%
-19,United Arab Emirates,206.0,Industrial Combustion,72.24,35.1%
-20,Pakistan,200.52,Industrial Combustion,53.83,26.8%
-21,Iraq,192.91,Power Industry,62.91,32.6%
-22,Argentina,183.78,Transport,47.45,25.8%
-23,Algeria,180.35,Transport,46.56,25.8%
-24,Philippines,161.27,Power Industry,82.74,51.3%
-25,Uzbekistan,137.91,Power Industry,47.67,34.6%
-26,Ukraine,136.19,Power Industry,49.97,36.7%
-27,Nigeria,127.94,Transport,57.86,45.2%
-28,Qatar,127.89,Fuel Exploitation,50.69,39.6%
-29,Bangladesh,124.81,Power Industry,57.03,45.7%
-30,Netherlands,122.87,Power Industry,32.45,26.4%
-31,Kuwait,111.62,Power Industry,50.87,45.6%
-32,Colombia,100.87,Transport,36.7,36.4%
-33,Oman,93.1,Buildings,20.42,21.9%
-34,Czechia,90.53,Power Industry,39.87,44.0%
-35,Belgium,84.3,Transport,21.95,26.0%
-36,Chile,84.01,Transport,31.95,38.0%
-37,Romania,70.77,Transport,20.78,29.4%
-38,Morocco,69.86,Power Industry,28.86,41.3%
-39,Turkmenistan,65.98,Buildings,25.97,39.4%
-40,Libya,61.25,Power Industry,21.08,34.4%
-41,Austria,58.82,Transport,21.14,35.9%
-42,Peru,58.41,Transport,24.03,41.1%
-43,Singapore,57.06,Power Industry,20.0,35.1%
-44,Belarus,54.16,Power Industry,25.18,46.5%
-45,Greece,51.66,Transport,17.57,34.0%
-46,Ecuador,45.33,Transport,21.89,48.3%
-47,Norway,44.06,Transport,13.49,30.6%
-48,Hungary,43.83,Transport,14.25,32.5%
-49,Azerbaijan,42.76,Power Industry,15.35,35.9%
-50,Bulgaria,39.8,Power Industry,16.97,42.6%
-51,Bahrain,37.43,Power Industry,23.79,63.6%
-52,Portugal,36.17,Transport,15.78,43.6%
-53,New Zealand,35.81,Transport,16.0,44.7%
-54,Sweden,35.4,Transport,13.31,37.6%
-55,Ireland,32.49,Transport,11.11,34.2%
-56,Finland,32.27,Power Industry,8.97,27.8%
-57,Tunisia,31.5,Power Industry,9.38,29.8%
-58,Dominican Republic,31.35,Power Industry,13.19,42.1%
-59,Angola,28.23,Transport,8.5,30.1%
-60,Mongolia,28.11,Power Industry,16.42,58.4%
-61,Trinidad and Tobago,27.21,Processes,12.95,47.6%
-62,Denmark,26.79,Transport,11.24,42.0%
-63,Ghana,24.16,Transport,9.04,37.4%
-64,Bolivia,23.81,Transport,11.91,50.0%
-65,Jordan,23.57,Power Industry,8.13,34.5%
-66,Cuba,22.06,Power Industry,11.19,50.7%
-67,Bosnia and Herzegovina,21.99,Power Industry,12.09,55.0%
-68,Kenya,21.73,Transport,10.61,48.8%
-69,Guatemala,21.35,Transport,11.52,54.0%
-70,Sri Lanka,20.53,Transport,9.44,46.0%
-71,Tanzania,19.37,Transport,8.91,46.0%
-72,Cambodia,17.96,Transport,7.36,41.0%
-73,Nepal,17.93,Industrial Combustion,6.97,38.9%
-74,Croatia,17.44,Transport,6.89,39.5%
-75,Lebanon,17.32,Power Industry,7.55,43.6%
-76,Ethiopia,16.7,Transport,6.64,39.8%
-77,Panama,14.72,Power Industry,6.37,43.3%
-78,Puerto Rico,13.83,Power Industry,10.69,77.3%
-79,Lithuania,13.1,Transport,6.2,47.3%
-80,Georgia,12.86,Transport,4.44,34.5%
-81,Slovenia,12.07,Transport,4.78,39.6%
-82,Senegal,12.03,Power Industry,3.6,29.9%
-83,Zimbabwe,11.75,Power Industry,4.75,40.4%
-84,Estonia,11.44,Power Industry,4.21,36.8%
-85,Honduras,10.95,Transport,4.96,45.3%
-86,Cameroon,10.75,Transport,4.27,39.7%
-87,Moldova,9.92,Power Industry,3.99,40.2%
-88,Mozambique,9.75,Transport,3.93,40.3%
-89,Tajikistan,9.31,Buildings,2.32,24.9%
-90,Uruguay,8.82,Transport,4.02,45.6%
-91,North Macedonia,8.77,Power Industry,3.97,45.3%
-92,Afghanistan,8.71,Industrial Combustion,3.31,38.0%
-93,Costa Rica,8.57,Transport,6.07,70.8%
-94,El Salvador,8.38,Transport,4.41,52.6%
-95,Paraguay,8.26,Transport,7.17,86.8%
-96,Zambia,8.06,Transport,2.36,29.3%
-97,Armenia,7.72,Transport,2.47,32.0%
-98,Botswana,7.43,Power Industry,3.85,51.8%
-99,Uganda,7.22,Transport,3.55,49.2%
-100,Cyprus,7.19,Power Industry,3.09,43.0%
-101,Luxembourg,7.0,Transport,4.2,60.0%
-102,Jamaica,6.86,Power Industry,2.44,35.6%
-103,Mali,6.66,Transport,3.32,49.8%
-104,Latvia,6.54,Transport,3.06,46.8%
-105,Malawi,6.45,Industrial Combustion,3.46,53.6%
-106,Benin,6.45,Transport,4.28,66.4%
-107,New Caledonia,6.2,Industrial Combustion,2.32,37.4%
-108,Burkina Faso,6.01,Transport,2.73,45.4%
-109,Papua New Guinea,5.94,Transport,2.59,43.6%
-110,Nicaragua,5.73,Transport,2.72,47.5%
-111,Gabon,4.93,Fuel Exploitation,2.61,52.9%
-112,Mauritania,4.65,Transport,2.43,52.3%
-113,Albania,4.58,Transport,1.68,36.7%
-114,Namibia,4.37,Transport,2.15,49.2%
-115,Mauritius,4.21,Power Industry,2.47,58.7%
-116,Madagascar,4.1,Power Industry,1.69,41.2%
-117,Equatorial Guinea,3.78,Fuel Exploitation,1.01,26.7%
-118,Guinea,3.71,Transport,1.75,47.2%
-119,Haiti,3.53,Transport,1.45,41.1%
-120,Guyana,3.31,Transport,1.04,31.4%
-121,Iceland,3.09,Processes,1.6,51.8%
-122,Maldives,2.87,Transport,1.47,51.2%
-123,Niger,2.83,Transport,1.27,44.9%
-124,Suriname,2.63,Power Industry,1.05,39.9%
-125,Chad,2.57,Transport,1.07,41.6%
-126,Togo,2.5,Transport,1.31,52.4%
-127,Curaçao,2.44,Transport,1.23,50.4%
-128,Fiji,2.21,Transport,1.11,50.2%
-129,Bhutan,1.99,Processes,0.75,37.7%
-130,Malta,1.68,Power Industry,0.74,44.0%
-131,Rwanda,1.66,Transport,0.6,36.1%
-132,Liberia,1.63,Transport,0.81,49.7%
-133,Palau,1.44,Transport,0.76,52.8%
-134,Eswatini,1.39,Transport,0.85,61.2%
-135,French Polynesia,1.26,Transport,0.65,51.6%
-136,Seychelles,1.24,Transport,0.71,57.3%
-137,Sierra Leone,1.08,Transport,0.53,49.1%
-138,Cabo Verde,1.0,Transport,0.57,57.0%
-139,Lesotho,0.88,Transport,0.5,56.8%
-140,Somalia,0.87,Transport,0.48,55.2%
-141,Burundi,0.85,Transport,0.41,48.2%
-142,Barbados,0.8,Power Industry,0.35,43.8%
-143,Djibouti,0.75,Transport,0.35,46.7%
-144,Gibraltar,0.69,Transport,0.56,81.2%
-145,Timor-Leste,0.69,Transport,0.34,49.3%
-146,Eritrea,0.67,Power Industry,0.31,46.3%
-147,Greenland,0.59,Buildings,0.34,57.6%
-148,Aruba,0.53,Power Industry,0.26,49.1%
-149,Samoa,0.47,Transport,0.24,51.1%
-150,Solomon Islands,0.42,Transport,0.21,50.0%
-151,Cayman Islands,0.36,Power Industry,0.18,50.0%
-152,Central African Republic,0.36,Transport,0.2,55.6%
-153,Guinea-Bissau,0.35,Transport,0.2,57.1%
-154,Bermuda,0.34,Power Industry,0.17,50.0%
-155,Antigua and Barbuda,0.32,Power Industry,0.16,50.0%
-156,Comoros,0.32,Transport,0.18,56.3%
-157,Vanuatu,0.29,Transport,0.15,51.7%
-158,Belize,0.28,Power Industry,0.14,50.0%
-159,Tonga,0.22,Transport,0.11,50.0%
-160,São Tomé and Principe,0.21,Transport,0.12,57.1%
-161,Grenada,0.14,Power Industry,0.07,50.0%
-162,Turks and Caicos Islands,0.11,Power Industry,0.05,45.5%
-163,British Virgin Islands,0.09,Power Industry,0.04,44.4%
-164,Kiribati,0.09,Transport,0.05,55.6%
-165,Dominica,0.09,Power Industry,0.04,44.4%
+,Country,Year,Total Emission,Emission Power,Emission Sector
+0,China,2023,13259.63895,44150.88,106077.12
+1,India,2023,2955.181684,9773.75,23641.44
+2,Japan,2023,944.7586103,4001.04,7558.0
+3,Indonesia,2023,674.5359386,1914.08,5396.24
+4,Saudi Arabia,2023,622.9136005,2061.15,3737.46
+5,Germany,2023,582.9505817,1475.44,5246.46
+6,Canada,2023,575.0119627,836.56,4600.08
+7,Mexico,2023,487.0939365,1397.68,3896.72
+8,Brazil,2023,479.5042293,547.52,3836.0
+9,South Africa,2023,397.3729581,1160.39,3178.96
+10,Australia,2023,373.6164239,1215.44,2615.41
+11,Viet Nam,2023,372.9485199,1044.88,2983.6
+12,United Kingdom,2023,302.1032807,522.08,2416.8
+13,Poland,2023,286.9067825,862.08,2582.1
+14,Malaysia,2023,283.3235299,913.28,1983.24
+15,Thailand,2023,274.1600465,837.92,1919.12
+16,Kazakhstan,2023,239.8671134,649.95,1679.09
+17,United Arab Emirates,2023,205.9913033,487.86,1442.0
+18,Pakistan,2023,200.5101298,535.29,1804.68
+19,Iraq,2023,192.9082428,725.27,1736.19
+20,Argentina,2023,183.7784214,414.64,1470.24
+21,Algeria,2023,180.3576499,488.16,1623.15
+22,Uzbekistan,2023,137.9001132,598.43,1241.19
+23,Nigeria,2023,127.9417257,151.41,1151.46
+24,Qatar,2023,127.9078898,265.84,1151.01
+25,Bangladesh,2023,124.7933633,507.64,1123.29
+26,Netherlands,2023,122.87205,256.88,1105.83
+27,Kuwait,2023,111.633539,436.0,1004.58
+28,Colombia,2023,100.8627109,194.56,907.83
+29,Oman,2023,93.09418839,147.42,837.9
+30,Czechia,2023,90.51280348,268.4,814.77
+31,Belgium,2023,84.30606458,88.72,758.7
+32,Chile,2023,83.99923167,211.76,756.09
+33,Romania,2023,70.77330856,110.8,636.93
+34,Morocco,2023,69.858022,183.33,628.74
+35,Turkmenistan,2023,65.98768402,308.98,593.82
+36,Libya,2023,61.25859526,204.12,551.25
+37,Austria,2023,58.81513302,63.2,529.38
+38,Peru,2023,58.40336278,149.52,525.69
+39,Singapore,2023,57.06833124,200.97,285.3
+40,Belarus,2023,54.17566063,127.04,487.44
+41,Greece,2023,51.67400117,131.68,464.94
+42,Ecuador,2023,45.3281604,48.16,407.97
+43,Norway,2023,44.06520457,37.44,396.54
+44,Hungary,2023,43.82523189,55.76,394.47
+45,Azerbaijan,2023,42.76620028,155.92,384.84
+46,Bulgaria,2023,39.79256593,108.48,358.2
+47,Bahrain,2023,37.42557341,195.84,336.87
+48,Portugal,2023,36.17134971,58.48,325.53
+49,New Zealand,2023,35.79508597,36.64,322.29
+50,Sweden,2023,35.39216972,51.12,318.6
+51,Ireland,2023,32.4825757,71.2,292.41
+52,Finland,2023,32.26887724,39.78,290.43
+53,Tunisia,2023,31.49745771,83.51,283.5
+54,Angola,2023,28.22992761,18.0,254.07
+55,Mongolia,2023,28.11711833,43.47,252.99
+56,Trinidad and Tobago,2023,27.21617986,45.36,244.89
+57,Denmark,2023,26.77291179,40.4,241.11
+58,Ghana,2023,24.16378619,66.0,217.44
+59,Bolivia,2023,23.80693239,40.88,214.29
+60,Cuba,2023,22.06698748,78.16,198.54
+61,Kenya,2023,21.7336726,8.68,195.57
+62,Guatemala,2023,21.34940527,25.69,192.15
+63,Sri Lanka,2023,20.51799691,47.88,143.71
+64,Cambodia,2023,17.97008245,45.36,161.64
+65,Croatia,2023,17.45650159,23.8,156.96
+66,Lebanon,2023,17.33205484,11.69,155.88
+67,Ethiopia,2023,16.7076921,3.44,150.3
+68,Panama,2023,14.72052763,16.65,132.48
+69,Puerto Rico,2023,13.81529408,78.9,124.47
+70,Lithuania,2023,13.11462075,5.04,117.9
+71,Georgia,2023,12.8635951,16.94,115.74
+72,Slovenia,2023,12.07646104,28.0,108.63
+73,Senegal,2023,12.02393894,30.17,108.27
+74,Zimbabwe,2023,11.74405128,17.36,105.75
+75,Estonia,2023,11.43636893,18.16,102.96
+76,Honduras,2023,10.94576269,23.73,98.55
+77,Cameroon,2023,10.75563149,16.66,96.75
+78,Moldova,2023,9.928220045,25.28,89.28
+79,Mozambique,2023,9.740080311,15.0,87.75
+80,Tajikistan,2023,9.308194605,13.23,83.79
+81,Uruguay,2023,8.817278757,11.92,79.38
+82,North Macedonia,2023,8.763655053,31.36,78.93
+83,Afghanistan,2023,8.70734983,0.84,78.39
+84,Costa Rica,2023,8.573344504,2.03,77.13
+85,El Salvador,2023,8.379618575,4.62,75.42
+86,Paraguay,2023,8.25393827,7.7,74.34
+87,Zambia,2023,8.058979391,15.12,72.54
+88,Armenia,2023,7.725144396,15.89,69.48
+89,Botswana,2023,7.424698218,13.2,66.87
+90,Cyprus,2023,7.183299498,17.04,64.71
+91,Luxembourg,2023,7.007462613,1.02,63.0
+92,Mali,2023,6.66068125,12.04,59.94
+93,Latvia,2023,6.551100159,5.32,58.86
+94,Benin,2023,6.437895655,4.13,58.05
+95,Burkina Faso,2023,5.999250483,4.8,54.09
+96,Papua New Guinea,2023,5.951817103,17.01,53.46
+97,Nicaragua,2023,5.725285354,8.82,51.57
+98,Gabon,2023,4.926896005,9.59,44.37
+99,Albania,2023,4.591827764,1.54,41.22
