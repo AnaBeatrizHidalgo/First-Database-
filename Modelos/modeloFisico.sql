@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS public."Power Source_Country"
     CONSTRAINT "fk_psc_country" FOREIGN KEY ("Country_ID_Country") REFERENCES public."Country" ("ID_Country")
 );
 
-CREATE TABLE IF NOT EXISTS public."Demography_Year"
+CREATE TABLE IF NOT EXISTS public."Demography"
 (
     "ID" serial PRIMARY KEY,
     "Year" integer,
