@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS public."Power Source_Country"
     "Power_Generati" numeric(12, 4)
 );
 
-CREATE TABLE IF NOT EXISTS public."Population_Year"
+CREATE TABLE IF NOT EXISTS public."Demography"
 (
     "ID" serial NOT NULL,
     "Year" integer,
@@ -160,7 +160,7 @@ ALTER TABLE IF EXISTS public."Power Source_Country"
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."Population_Year"
+ALTER TABLE IF EXISTS public."Demography"
     ADD FOREIGN KEY ("Country_ID")
     REFERENCES public."Country" ("ID_Country") MATCH SIMPLE
     ON UPDATE NO ACTION
