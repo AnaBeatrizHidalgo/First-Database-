@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS public."Country"
 CREATE TABLE IF NOT EXISTS public."Environmental Indicator"
 (
     "ID_Environmental" serial PRIMARY KEY,
-    "ELUC" numeric(15, 10),
     "CO2_Emision" numeric(15, 10),
     "Year" integer,
     "Country_ID" integer NOT NULL,
@@ -84,7 +83,7 @@ CREATE TABLE IF NOT EXISTS public."Power Source_Country"
     "Year" integer,
     "CO2_Emission" numeric(12, 4),
     "Power_Generation" numeric(12, 4),
-    CONSTRAINT "pk_power_source_country" PRIMARY KEY ("Power Source_ID_Power", "Country_ID_Country", "Year"),
+    CONSTRAINT "pk_power_source_country" PRIMARY KEY ("Power Source_ID_Power", "Country_ID_Country"),
     CONSTRAINT "fk_psc_power" FOREIGN KEY ("Power Source_ID_Power") REFERENCES public."Power Source" ("ID_Power"),
     CONSTRAINT "fk_psc_country" FOREIGN KEY ("Country_ID_Country") REFERENCES public."Country" ("ID_Country")
 );

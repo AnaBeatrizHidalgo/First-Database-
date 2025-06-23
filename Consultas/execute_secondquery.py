@@ -25,7 +25,8 @@ SELECT
 FROM   "Power Source_Country" CPS
 JOIN   "Country"      C  ON C."ID_Country"   = CPS."Country_ID_Country"
 JOIN   "Power Source" PS ON PS."ID_Power"    = CPS."Power Source_ID_Power"
-ORDER  BY CPS."Year" DESC, "Emissions_Mt" DESC, "Generation_TWh" DESC ;
+ORDER  BY CPS."Year" DESC, "Emissions_Mt" DESC, "Generation_TWh" DESC
+LIMIT 100;
 ''')
 
 with engine.begin() as conn:

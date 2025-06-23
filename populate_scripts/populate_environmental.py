@@ -46,21 +46,19 @@ env = (
       .rename(columns={
           "Country": "country",
           "Year": "year",
-          "CO2 Emission": "co2",
-          "ELUC": "eluc"
+          "CO2 Emission": "co2"
       })
 )
 env = env[env["year"].between(YEAR_MIN, YEAR_MAX)].copy()
 env["country_key"] = env["country"].apply(clean_country)
 env["co2"]  = env["co2"].apply(parse_number)
-env["eluc"] = env["eluc"].apply(parse_number)
 
 df = (
     env.merge(country_map[["ID_Country", "country_key"]], on="country_key", how="inner")
 )
 
 df_final = (
-    df[["ID_Country", "year", "co2", "eluc"]]
+    df[["ID_Country", "year", "co2"]]
       .drop_duplicates(subset=["ID_Country", "year"])
       .reset_index(drop=True)
 )
@@ -74,8 +72,6 @@ with engine.begin() as conn:
 
         if row.co2 is not None:
             col_map['"CO2_Emision"'] = py_val(row.co2)
-        if row.eluc is not None:
-            col_map['"ELUC"'] = py_val(row.eluc)
 
         if not col_map:
             continue

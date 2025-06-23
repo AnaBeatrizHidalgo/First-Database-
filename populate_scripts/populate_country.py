@@ -14,6 +14,9 @@ df_country = countries[['Table Name']].rename(columns={
     'Table Name': 'Name',
 })
 
+# Filtrar para remover a linha onde Name == "World"
+df_country = df_country[df_country['Name'] != 'World']
+
 df_country['Name'] = df_country['Name'].str.slice(0, 100)
 
 with engine.begin() as conn:
